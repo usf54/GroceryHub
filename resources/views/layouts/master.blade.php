@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="{{ asset('assets/img/logo.png') }}" type="image/x-icon">
   <!-- CSS -->
   <link rel="stylesheet" href="{{ asset('assets/css/master.css') }}">
   @stack('styles')
@@ -10,8 +11,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <!-- FONT AWESOME -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- Swiper CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
   <title>@yield('title')</title>
 </head>
@@ -19,7 +20,9 @@
   <header>
     <div class="search-container">
       <div class="logo">
-        <img src="{{ asset('assets/img/logo.png') }}" alt="logo">
+        <a href="/">
+          <img src="{{ asset('assets/img/logo1.png') }}" alt="logo">
+        </a>
       </div>
       <div class="search-bar">
         <input type="text" placeholder='Search (Vegetables, Fruits.. etc.)'>
@@ -28,23 +31,32 @@
       <div class="header-icons">
         <div class="icon"><i class="fa-solid fa-cart-shopping"></i></div>
         <div class="icon"><i class="fa-regular fa-heart"></i></div>
-        <div class="icon"><i class="fa-regular fa-user"></i></div>
-        <div class="icon"><i class="fa-solid fa-bars"></i></div>
+        <div class="icon"><a href="{{route('profile.edit')}}"><i class="fa-regular fa-user"></i></a></div>
+        <!-- Mobile Menu Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <i class="fa-solid fa-bars"></i>
+        </button>
       </div>
     </div>
+    
+    <!-- Navigation Menu -->
     <div class="links-container">
-      <nav>
-        <ul>
-          <li><a href="">Fruits & Vegetables</a></li>
-          <li><a href="">Dairy & Eggs</a></li>
-          <li><a href="">Meat & Seafood</a></li>
-          <li><a href="">Bakery & Bread</a></li>
-          <li><a href="">Frozen Foods</a></li>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item"><a class="nav-link" href="#">Fruits & Vegetables</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Dairy & Eggs</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Meat & Seafood</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Bakery & Bread</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Frozen Foods</a></li>
+            </ul>
           </div>
-        </ul>
+        </div>
       </nav>
     </div>
   </header>
+
 
   <main>
     @yield('content')
