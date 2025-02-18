@@ -7,6 +7,10 @@
     font-family: "Nunito", sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 :root {
     --primary-color: #ff9800;
     --secondary-color: #eef5e5;
@@ -88,8 +92,6 @@
 }
 
 .header-icons .icon:hover {
-    background-color: var(--primary-color);
-    color: white;
     transform: scale(1.1);
 }
 .navbar-toggler i {
