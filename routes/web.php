@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,3 +23,11 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+
+
+Route::resource('products', ProductController::class); 
+Route::get('/', [ProductController::class, 'index']); 
+Route::get('/products', [ProductController::class, 'showAllProducts'])->name('products.list');  
+Route::get('/products/{$id}', [ProductController::class, 'show'])->name('product.show');  
