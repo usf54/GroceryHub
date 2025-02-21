@@ -1,111 +1,125 @@
-@extends('layouts.admin')
-
-@section('title', 'Admin Dashboard')
+@extends('admin.layout')
 
 @section('content')
-<div class="admin-container">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="logo">
-            <h2>Admin Panel</h2>
+<div class="container">
+    <h1 class="mb-4">Welcome, Admin!</h1>
+    <p class="mb-4">Manage users, products, and more...</p>
+
+    <!-- Cards Section -->
+    <div class="row">
+        <!-- Total Users Card -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <i class="fa-solid fa-user"></i>
+                    <h5 class="card-title">Total Users</h5>
+                    <p class="card-text">{{ $usersCount }}</p>
+                </div>
+            </div>
         </div>
-        <ul class="menu">
-            <li><a href="{{ route('admin.dashboard') }}" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
-            <li><a href="#"><i class="fas fa-box"></i> Products</a></li>
-            <li><a href="#"><i class="fas fa-users"></i> Users</a></li>
-            <li><a href="#"><i class="fas fa-shopping-cart"></i> Orders</a></li>
-            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-        </ul>
-    </aside>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <header class="admin-header">
-            <div class="header-left">
-                <h2>Dashboard</h2>
+        <!-- Total Products Card -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <i class="fas fa-cubes"></i>
+                    <h5 class="card-title">Total Products</h5>
+                    <p class="card-text">{{ $productsCount }}</p>
+                </div>
             </div>
-            <div class="header-right">
-                <i class="fas fa-user-circle"></i> Admin
-            </div>
-        </header>
+        </div>
 
-        <!-- Statistics -->
-        <section class="dashboard-stats">
-            <div class="card">
-                <i class="fas fa-box"></i>
-                <h3>150</h3>
-                <p>Products</p>
+        <!-- Total Categories Card -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-white bg-danger">
+                <div class="card-body">
+                    <i class="fas fa-list"></i>
+                    <h5 class="card-title">Total Categories</h5>
+                    <p class="card-text">{{ $categoriesCount }}</p>
+                </div>
             </div>
-            <div class="card">
-                <i class="fas fa-users"></i>
-                <h3>245</h3>
-                <p>Users</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-shopping-cart"></i>
-                <h3>89</h3>
-                <p>Orders</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-dollar-sign"></i>
-                <h3>$12,540</h3>
-                <p>Revenue</p>
-            </div>
-        </section>
+        </div>
 
-        <!-- Graphs -->
-        <section class="dashboard-graphs">
-            <div class="chart-container">
-                <canvas id="salesChart"></canvas>
+        <!-- Total Packs Card -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    <h5 class="card-title">Total Packs</h5>
+                    <p class="card-text">{{ $packsCount }}</p>
+                </div>
             </div>
-            <div class="chart-container">
-                <canvas id="usersChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="row mt-5">
+        <!-- Recent Users -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Recent Users</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Registered At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($recentUsers as $user)
+                                    <tr>
+                                        <td>{{ $user->id }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->created_at->format('Y-m-d H:i:s') }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
+
+        <!-- Recent Products -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Recent Products</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($recentProducts as $product)
+                                    <tr>
+                                        <td>{{ $product->id }}</td>
+                                        <td>{{ $product->name }}</td>
+                                        <td>${{ number_format($product->price, 2) }}</td>
+                                        <td>{{ $product->stock }}</td>
+                                        <td>{{ $product->created_at->format('Y-m-d H:i:s') }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    // Sales Data
-    var salesCtx = document.getElementById('salesChart').getContext('2d');
-    var salesChart = new Chart(salesCtx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            datasets: [{
-                label: 'Monthly Sales',
-                data: [500, 700, 900, 1100, 1500, 1700],
-                backgroundColor: 'rgba(255, 152, 0, 0.2)',
-                borderColor: '#FF9800',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
-
-    // Users Growth
-    var usersCtx = document.getElementById('usersChart').getContext('2d');
-    var usersChart = new Chart(usersCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            datasets: [{
-                label: 'New Users',
-                data: [50, 80, 120, 200, 250, 300],
-                backgroundColor: '#FF9800'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
-});
-</script>
 @endsection

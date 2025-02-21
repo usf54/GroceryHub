@@ -102,7 +102,7 @@
                                         <div class="product-item">
                                             <figure>
                                               <a href="{{ route('product.show', $product->id) }}" title="{{ $product->name }}">
-                                                <img src="{{ asset('assets/img/products/thumb-biscuits.png') }}" class="tab-image" alt="{{ $product->name }}">
+                                                <img src="{{ asset('storage/' . $product->img) }}" class="tab-image" alt="{{ $product->name }}">
                                               </a>
                                             </figure>
                                             <h3>{{ $product->name }}</h3>

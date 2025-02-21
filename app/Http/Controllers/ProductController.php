@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function home()
     {
         $products = Product::take(10)->get();
 
@@ -22,7 +22,6 @@ class ProductController extends Controller
         return view('products-list', compact('products'));
     }
 
-
     // Show a specific product
     public function show($id)
     {
@@ -30,67 +29,85 @@ class ProductController extends Controller
         return view('product-details', compact('product')); 
     }
 
-    // Admin: Show the form to create a new product
+    // Manage Products
+    public function index()
+    {
+        $products = Product::all();
+        
+        return view('admin.products.index', compact('products'));
+    }
+
     public function create()
     {
-        $categories = Category::all(); // Get all categories to associate with the product
-        return view('products.create', compact('categories'));
+        $categories = Category::all();
+        return view('admin.products.create', compact('categories'));
     }
 
-    // Admin: Store a new product
     public function store(Request $request)
     {
-        // Validate the incoming request data
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Create the product
-        Product::create($validatedData);
+        $data = $request->all();
 
-        // Redirect to the product list
-        return redirect()->route('products.index')->with('success', 'Product created successfully');
+         // Handle image upload
+        if ($request->hasFile('img')) {
+            $data['img'] = $request->file('img')->store('products', 'public');
+        }
+
+        Product::create($data);
+
+        return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
     }
 
-    // Admin: Show the form to edit an existing product
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product = Product::findOrFail($id);
-        $categories = Category::all(); // Get all categories to update the product
-        return view('products.edit', compact('product', 'categories'));
+        $categories = Category::all();
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
-    // Admin: Update the product
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        // Validate the incoming request data
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Find the product and update it
-        $product = Product::findOrFail($id);
-        $product->update($validatedData);
+        $data = $request->all();
 
-        // Redirect to the product list
-        return redirect()->route('products.index')->with('success', 'Product updated successfully');
+        
+        if ($request->hasFile('img')) {
+            if ($product->img) {
+                Storage::disk('public')->delete($product->img);
+            }
+            $data['img'] = $request->file('img')->store('products', 'public');
+        }
+
+        $product->update($data);
+
+        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
     }
 
-    // Admin: Delete a product
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        $product = Product::findOrFail($id);
+        if ($product->img) {
+            Storage::disk('public')->delete($product->img);
+        }
+
         $product->delete();
 
-        // Redirect to the product list
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully');
+        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
     }
 }
+
+
