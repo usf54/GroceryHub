@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
-            <img src="{{ asset('assets/img/products/thumb-biscuits.png') }}" class="tab-image" alt="{{ $product->name }}">
+            <img src="{{ asset('storage/' . $product->img) }}" class="tab-image" alt="{{ $product->name }}">
         </div>
         <div class="col-md-6">
             <h2>{{ $product->name }}</h2>

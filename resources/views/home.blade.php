@@ -171,9 +171,7 @@
         <div class="bg-warning py-5 rounded-5" style="background-image: url({{ asset('assets/img/bg-pattern-2.png')}}) no-repeat;">
           <div class="container">
             <div class="row">
-              <div class="col-md-4">
-                <img src="{{ asset('assets/img/phon.png')}}" alt="phone" class="image-float img-fluid">
-              </div>
+              
               <div class="col-md-8">
                 <h2 class="my-5"><strong>Coming Soon!! :</strong> Shop faster with GroceryHub App</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames semper erat ac in suspendisse iaculis. Amet blandit tortor praesent ante vitae. A, enim pretiummi senectus magna. Sagittis sed ptibus liberolectus non et psryroin.</p>

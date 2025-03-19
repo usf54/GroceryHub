@@ -27,6 +27,17 @@
             <label for="description">Description</label>
             <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
         </div>
+        <div class="form-group">
+            <label for="products">Select Products</label>
+            <select name="products[]" id="products" class="form-control" multiple>
+                @foreach ($products as $product)
+                    <option value="{{ $product->id }}" 
+                        {{ isset($pack) && $pack->products->contains($product->id) ? 'selected' : '' }}>
+                        {{ $product->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
         <div class="form-group">
             <label for="price">Price</label>

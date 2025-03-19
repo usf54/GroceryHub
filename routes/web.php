@@ -64,6 +64,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 // Profile Routes
 Route::middleware('auth')->group(function () {
+    Route::get('/profile-page', [ProfileController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -74,3 +75,5 @@ require __DIR__.'/auth.php';
 
 // Product Resource Controller
 Route::resource('products', ProductController::class);
+Route::get('/packs', [PackController::class, 'showPacks'])->name('packs.index');
+

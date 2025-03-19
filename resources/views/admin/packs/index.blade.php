@@ -20,6 +20,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Products</th>
                     <th>Price</th>
                     <th>Stock</th>
                     <th>Category</th>
@@ -34,7 +35,12 @@
                         <td>{{ $pack->id }}</td>
                         <td>{{ $pack->name }}</td>
                         <td>{{ $pack->description ?? 'N/A' }}</td>
-                        <td>${{ number_format($pack->price, 2) }}</td>
+                        <td>
+                            @foreach ($pack->products as $product)
+                                <span class="badge badge-info text-dark">{{ $product->name }} | </span>
+                            @endforeach
+                        </td>
+                        <td>{{ number_format($pack->price, 2) }} mad</td>
                         <td>{{ $pack->stock }}</td>
                         <td>{{ $pack->category->name ?? 'N/A' }}</td>
                         <td>{{ $pack->created_at->format('Y-m-d H:i:s') }}</td>
