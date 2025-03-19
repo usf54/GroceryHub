@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -15,12 +16,37 @@ class ProductController extends Controller
         return view('home', compact('products'));
     }
 
-    public function showAllProducts()
-    {
-        $products = Product::all();
+    public function showAllProducts(Request $request)
+{
+    $categories = Category::all();
+    $query = Product::query();
 
-        return view('products-list', compact('products'));
+    // Map category names to IDs
+    $categoryMapping = [
+        'fruits' => 1,
+        'vegetables' => 2,
+        'Meats' => 8,
+        'Bakery' => 6,
+        'seafood' => 16,
+    ];
+
+    // Filter by category name
+    if ($request->has('category') && array_key_exists($request->category, $categoryMapping)) {
+        $query->where('category_id', $categoryMapping[$request->category]);
     }
+
+    // Filter by price range
+    if ($request->has('price') && !empty($request->price)) {
+        $query->where('price', '<=', $request->price);
+    }
+
+    // Paginate and retain filters
+    $products = $query->paginate(12)->appends($request->query());
+
+    return view('products-list', compact('products', 'categories'));
+}
+
+
 
     // Show a specific product
     public function show($id)

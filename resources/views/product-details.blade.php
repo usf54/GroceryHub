@@ -3,8 +3,8 @@
 @section('content')
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-6">
-            <img src="{{ asset('storage/' . $product->img) }}" class="tab-image" alt="{{ $product->name }}">
+        <div class="col-md-6" >
+            <img style="width:100%;" src="{{ asset('storage/' . $product->img) }}" class="tab-image" alt="{{ $product->name }}">
         </div>
         <div class="col-md-6">
             <h2>{{ $product->name }}</h2>

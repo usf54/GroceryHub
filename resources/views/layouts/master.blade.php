@@ -82,20 +82,21 @@
     </header>
     <!-- Navigation Menu -->
     <div class="links-container">
-      <nav class="navbar navbar-expand-lg">
-        <div class="container">
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item"><a class="nav-link" href="#">Fruits & Vegetables</a></li>
-              <li class="nav-item"><a class="nav-link" href="#">Dairy & Eggs</a></li>
-              <li class="nav-item"><a class="nav-link" href="#">Meat & Seafood</a></li>
-              <li class="nav-item"><a class="nav-link" href="#">Bakery & Bread</a></li>
-              <li class="nav-item"><a class="nav-link" href="#">Frozen Foods</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="{{ route('products.list', ['category' => 'fruits']) }}">Fruits</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('products.list', ['category' => 'vegetables']) }}">Vegetables</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('products.list', ['category' => 'Meats']) }}">Meat & Chicken</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('products.list', ['category' => 'Bakery']) }}">Bakery & Bread</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('products.list', ['category' => 'seafood']) }}">Seafood</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </div>
+
     <main>
       @yield('content')
     </main>

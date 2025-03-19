@@ -136,3 +136,96 @@
       margin: 0;
   }
 }
+
+/* Pagination */
+.pagination {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+}
+
+.pagination .page-item {
+  display: inline-block;
+}
+
+.pagination .page-link {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.pagination .page-link:hover {
+  background: #ffc43f;
+  color: #fff;
+}
+
+.pagination .page-item.active .page-link {
+  background: #000000;
+  color: #fff;
+  border-color: #000000;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pagination {
+      gap: 4px;
+      padding: 8px;
+  }
+
+  .pagination .page-link {
+      padding: 8px 12px;
+      font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination {
+      gap: 2px;
+      padding: 6px;
+  }
+
+  .pagination .page-link {
+      padding: 6px 10px;
+      font-size: 12px;
+  }
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Responsive Layout */
+@media (max-width: 767.98px) {
+  .product-page {
+      flex-direction: column;
+  }
+
+  .filters {
+      width: 100% !important; /* Full width on mobile */
+      margin-bottom: 20px;
+  }
+
+  .products {
+      margin-left: 0 !important; /* Remove left margin on mobile */
+  }
+
+  .product-grid {
+      row-gap: 20px; /* Add gap between rows on mobile */
+  }
+
+  .product-item {
+      margin-bottom: 0; /* Remove extra margin on mobile */
+  }
+}
+
+/* Pagination Responsiveness */
+@media (max-width: 575.98px) {
+  .pagination .page-link {
+      padding: 6px 10px;
+      font-size: 14px;
+  }
+}

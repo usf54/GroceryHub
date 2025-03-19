@@ -1,0 +1,92 @@
+/* Packs Page Styles */
+.product-item {
+  position: relative;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #fbfbfb;
+  box-shadow: 0px 5px 22px rgba(0, 0, 0, 0.04);
+  border-radius: 16px;
+  margin-bottom: 30px;
+  transition: box-shadow 0.3s ease-out;
+}
+
+.product-item:hover {
+  box-shadow: 0px 21px 44px rgba(0, 0, 0, 0.08);
+}
+
+.product-item .card-title {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+  text-transform: capitalize;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+.product-item .card-text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #666666;
+  margin-bottom: 10px;
+}
+
+.product-item p {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #666666;
+  margin-bottom: 5px;
+}
+
+.product-item ul {
+  margin-bottom: 15px;
+}
+
+.product-item ul li {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #666666;
+  margin-bottom: 5px;
+}
+
+.product-item .btn-primary {
+  background-color: #000000;
+  border-color: #000000;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease-out;
+}
+
+.product-item .btn-primary:hover {
+  background-color: #333333;
+  border-color: #333333;
+}
+
+/* Responsive Design */
+@media (max-width: 767.98px) {
+  .product-item {
+      margin-bottom: 20px;
+  }
+
+  .product-item .card-title {
+      font-size: 16px;
+      line-height: 22px;
+  }
+
+  .product-item .card-text,
+  .product-item p,
+  .product-item ul li {
+      font-size: 13px;
+      line-height: 18px;
+  }
+
+  .product-item .btn-primary {
+      font-size: 13px;
+      padding: 6px 12px;
+  }
+}

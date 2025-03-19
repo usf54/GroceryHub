@@ -9,12 +9,6 @@
         <symbol id="arrow-right" viewBox="0 0 24 24" fill="currentColor">
           <path d="M13 5l7 7-7 7M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </symbol>
-        <symbol id="plus" viewBox="0 0 24 24">
-            <path fill="currentColor" d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2Z"/>
-        </symbol>
-        <symbol id="minus" viewBox="0 0 24 24">
-            <path fill="currentColor" d="M19 11H5a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2Z"/>
-        </symbol>
         <symbol xmlns="http://www.w3.org/2000/svg" id="star-solid" viewBox="0 0 15 15">
           <path fill="currentColor" d="M7.953 3.788a.5.5 0 0 0-.906 0L6.08 5.85l-2.154.33a.5.5 0 0 0-.283.843l1.574 1.613l-.373 2.284a.5.5 0 0 0 .736.518l1.92-1.063l1.921 1.063a.5.5 0 0 0 .736-.519l-.373-2.283l1.574-1.613a.5.5 0 0 0-.283-.844L8.921 5.85l-.968-2.062Z"/>
         </symbol>
@@ -112,19 +106,6 @@
                                             </span>
                                             <span class="price">${{ number_format($product->price, 2) }}</span>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <div class="input-group product-qty">
-                                                    <span class="input-group-btn">
-                                                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                                            <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                                        </button>
-                                                    </span>
-                                                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                                                    <span class="input-group-btn">
-                                                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                                            <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                                        </button>
-                                                    </span>
-                                                </div>
                                                 <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></iconify-icon></a>
                                             </div>
                                         </div>
