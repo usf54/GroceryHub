@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Pack;
+use App\Models\Order;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -19,6 +20,7 @@ class AdminController extends Controller
         $usersCount = User::count();
         $categoriesCount = Category::count();
         $packsCount = Pack::count();
+        $ordersCount = Order::count();
         // Recent data
         $recentUsers = User::latest()->take(5)->get(); 
         $recentProducts = Product::latest()->take(5)->get(); 
@@ -37,6 +39,7 @@ class AdminController extends Controller
             'productsCount',
             'categoriesCount',
             'packsCount',
+            'ordersCount',
             'recentUsers',
             'recentProducts',
             'userRegistrations',

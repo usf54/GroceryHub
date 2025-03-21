@@ -113,6 +113,9 @@
                         <a class="nav-link" href="{{ route('admin.packs.index') }}">Packs</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.orders.index') }}">Orders</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>

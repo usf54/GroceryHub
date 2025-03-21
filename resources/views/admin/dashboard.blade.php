@@ -50,6 +50,17 @@
                 </div>
             </div>
         </div>
+
+        <!-- Total Orders Card -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <h5 class="card-title">Total Orders</h5>
+                    <p class="card-text">{{ $ordersCount }}</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Statistics Section -->

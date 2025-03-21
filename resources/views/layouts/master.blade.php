@@ -43,7 +43,12 @@
           @if (!Auth::user())
             <div class="icon"><a href="{{route('profile.edit')}}"><i class="fa-regular fa-user"></i></a></div>
           @else
-            <div class="icon"><i class="fa-solid fa-cart-shopping"></i></div>
+            <div class="icon">
+                <a href="{{ route('cart.view') }}">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">{{ session('cart') ? count(session('cart')) : 0 }}</span>
+                </a>
+            </div>
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">

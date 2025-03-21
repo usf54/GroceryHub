@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PackController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 // Home Page
@@ -44,6 +45,14 @@ Route::prefix('admin/packs')->group(function () {
     Route::delete('/{pack}', [PackController::class, 'destroy'])->name('admin.packs.destroy');
 });});
 
+// Orders CRUD Routes
+Route::prefix('admin/orders')->group(function () {
+    Route::get('/', [OrderController::class, 'index'])->name('admin.orders.index');
+    Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('admin.orders.edit');
+    Route::put('/{order}', [OrderController::class, 'update'])->name('admin.orders.update');
+    Route::delete('/{order}', [OrderController::class, 'destroy'])->name('admin.orders.destroy');
+});
+
 // Categories CRUD Routes
 Route::prefix('admin/categories')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('admin.categories.index');
@@ -76,4 +85,13 @@ require __DIR__.'/auth.php';
 // Product Resource Controller
 Route::resource('products', ProductController::class);
 Route::get('/packs', [PackController::class, 'showPacks'])->name('packs.index');
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::post('/order/add/{id}', [OrderController::class, 'addToCart'])->name('order.add');
+    Route::get('/cart', [OrderController::class, 'viewCart'])->name('cart.view');
+    Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
+    Route::get('/orders', [OrderController::class, 'viewOrders'])->name('orders.view');
+});
 

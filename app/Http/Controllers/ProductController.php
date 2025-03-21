@@ -17,34 +17,25 @@ class ProductController extends Controller
     }
 
     public function showAllProducts(Request $request)
-{
-    $categories = Category::all();
-    $query = Product::query();
+    {
+        $categories = Category::all();
+        $query = Product::query();
 
-    // Map category names to IDs
-    $categoryMapping = [
-        'fruits' => 1,
-        'vegetables' => 2,
-        'Meats' => 8,
-        'Bakery' => 6,
-        'seafood' => 16,
-    ];
+        // Filter by category ID
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
 
-    // Filter by category name
-    if ($request->has('category') && array_key_exists($request->category, $categoryMapping)) {
-        $query->where('category_id', $categoryMapping[$request->category]);
+        // Filter by price range
+        if ($request->filled('price')) {
+            $query->where('price', '<=', $request->price);
+        }
+
+        // Paginate and retain filters
+        $products = $query->paginate(12)->appends($request->query());
+
+        return view('products-list', compact('products', 'categories'));
     }
-
-    // Filter by price range
-    if ($request->has('price') && !empty($request->price)) {
-        $query->where('price', '<=', $request->price);
-    }
-
-    // Paginate and retain filters
-    $products = $query->paginate(12)->appends($request->query());
-
-    return view('products-list', compact('products', 'categories'));
-}
 
 
 
