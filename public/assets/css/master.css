@@ -26,6 +26,7 @@ html {
     padding: 8px 20px; /* Adjusted padding for better spacing */
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
 .logo {
@@ -97,9 +98,7 @@ html {
 .navbar-toggler:hover i { 
     transform: scale(1.1);
 }
-/* .navbar-toggler i {
-    font-size: 22px;
-} */
+
 /* ================= Responsive Adjustments ================= */
 @media (max-width: 768px) {
     .search-container {
@@ -173,12 +172,7 @@ html {
         margin-top: 10px;
     }
 
-    /* .header-icons .icon {
-        padding: 10px 19px;
-        border-radius: 50%;
-        font-size: 32px;
-        margin: 0 12px;
-    } */
+
 
     .links-container ul {
         flex-direction: column;
@@ -196,11 +190,6 @@ html {
         justify-content: center;
     }
 
-    /* .header-icons .icon {
-        padding: 10px 19px;
-        border-radius: 50%;
-        font-size: 18px;
-    } */
 
     .links-container ul {
         flex-direction: column;
