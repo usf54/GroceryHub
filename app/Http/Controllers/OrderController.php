@@ -70,14 +70,7 @@ class OrderController extends Controller
 
         session()->forget('cart'); // Clear cart after checkout
 
-        return redirect()->route('orders.view')->with('success', 'Order placed successfully!');
-    }
-
-    // 🔹 View All Orders for Logged-in User
-    public function viewOrders()
-    {
-        $orders = Order::where('user_id', Auth::id())->with('orderDetails.product')->get();
-        return view('orders', compact('orders'));
+        return redirect()->back()->with('success', 'Order placed successfully!');
     }
 
      // Display all orders

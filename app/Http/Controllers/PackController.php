@@ -15,12 +15,14 @@ class PackController extends Controller
         $packs = Pack::with('category')->get();
         return view('admin.packs.index', compact('packs'));
     }
+
+    // Show packs for public view
     public function showPacks()
     {
         $packs = Pack::with('products', 'category')->get();
         return view('packs.index', compact('packs'));
     }
-    
+
     // Show the form to create a new pack
     public function create()
     {
@@ -34,16 +36,30 @@ class PackController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category_id' => 'nullable|exists:categories,id',
-            'products' => 'nullable|array', // Allow selecting multiple products
-            'products.*' => 'exists:products,id' // Ensure valid product IDs
+            'products' => 'nullable|array',
+            'products.*' => 'exists:products,id'
         ]);
 
-        $pack = Pack::create($request->except('products'));
+        $pack = new Pack();
+        $pack->name = $request->name;
+        $pack->description = $request->description;
+        $pack->price = $request->price;
+        $pack->stock = $request->stock;
+        $pack->category_id = $request->category_id;
 
+        if ($request->hasFile('img')) {
+            $imagePath = $request->file('img')->store('packs', 'public');
+            $pack->img = $imagePath;
+        }
+
+        $pack->save();
+
+        // Attach products if selected
         if ($request->has('products')) {
             $pack->products()->attach($request->products);
         }
@@ -65,6 +81,7 @@ class PackController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
@@ -73,7 +90,19 @@ class PackController extends Controller
             'products.*' => 'exists:products,id'
         ]);
 
-        $pack->update($request->except('products'));
+        $pack->name = $request->name;
+        $pack->description = $request->description;
+        $pack->price = $request->price;
+        $pack->stock = $request->stock;
+        $pack->category_id = $request->category_id;
+
+        // ✅ Update image only if a new one is uploaded
+        if ($request->hasFile('img')) {
+            $imagePath = $request->file('img')->store('packs', 'public');
+            $pack->img = $imagePath;
+        }
+
+        $pack->save();
 
         if ($request->has('products')) {
             $pack->products()->sync($request->products);
@@ -87,7 +116,6 @@ class PackController extends Controller
     public function destroy(Pack $pack)
     {
         $pack->delete();
-
         return redirect()->route('admin.packs.index')->with('success', 'Pack deleted successfully.');
     }
 }

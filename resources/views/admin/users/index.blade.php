@@ -14,7 +14,7 @@
     <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-4">Add New User</a>
 
     <div class="table-responsive">
-        <table class="table table-bordered table-striped bg-light">
+        <table id="users-table" class="table table-bordered table-striped bg-light">
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
@@ -52,5 +52,19 @@
             </tbody>
         </table>
     </div>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <script>
+        $(document).ready(function () {
+            $('#users-table').DataTable({
+                pageLength: 10,
+                order: [[0, 'desc']],
+            });
+        });
+    </script>
+
 </div>
 @endsection

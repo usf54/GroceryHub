@@ -10,8 +10,9 @@
             {{ session('success') }}
         </div>
     @endif
+
     <div class="table-responsive">
-        <table class="table table-bordered table-striped bg-light">
+        <table id="orders-table" class="table table-bordered table-striped bg-light">
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
@@ -27,7 +28,7 @@
                 @foreach ($orders as $order)
                     <tr>
                         <td>{{ $order->id }}</td>
-                        <td>{{ $order->user->name }}</td>
+                        <td>{{ $order->user->name ?? 'N/A' }}</td>
                         <td>${{ number_format($order->total, 2) }}</td>
                         <td>{{ ucfirst($order->status) }}</td>
                         <td>{{ $order->created_at->format('Y-m-d H:i:s') }}</td>
@@ -46,4 +47,20 @@
         </table>
     </div>
 </div>
+    <!-- DataTables and jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <script>
+        $(document).ready(function () {
+            $('#orders-table').DataTable({
+                pageLength: 10,
+                order: [[0, 'desc']],
+                columnDefs: [
+                    { orderable: false, targets: [6] } // Disable sorting on the "Actions" column
+                ]
+            });
+        });
+    </script>
 @endsection

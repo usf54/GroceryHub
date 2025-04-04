@@ -12,6 +12,7 @@
             <div class="col-md-4 mb-4">
                 <div class="card shadow-sm product-item">
                     <div class="card-body">
+                        <img src="{{ asset('storage/' . $pack->img) }}" class="tab-image img-fluid" alt="{{ $pack->name }}">
                         <h5 class="card-title">{{ $pack->name }}</h5>
                         <p class="card-text">{{ $pack->description ?? 'No description available.' }}</p>
                         <p><strong>Price:</strong> ${{ number_format($pack->price, 2) }}</p>

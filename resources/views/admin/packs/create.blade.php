@@ -15,12 +15,17 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.packs.store') }}" method="POST">
+    <form action="{{ route('admin.packs.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="img">Image</label>
+            <input type="file" name="img" id="img" class="form-control">
         </div>
 
         <div class="form-group">
@@ -38,6 +43,7 @@
                 @endforeach
             </select>
         </div>
+
 
         <div class="form-group">
             <label for="price">Price</label>
@@ -62,5 +68,17 @@
         <button type="submit" class="btn btn-primary">Create Pack</button>
         <a href="{{ route('admin.packs.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#products').select2({
+                placeholder: "Select products",
+                tags: false,
+                width: '100%'
+            });
+        });
+    </script>
+
 </div>
 @endsection

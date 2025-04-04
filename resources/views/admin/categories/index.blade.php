@@ -14,7 +14,7 @@
     <a href="{{ route('admin.categories.create') }}" class="btn btn-primary mb-4">Add New Category</a>
 
     <div class="table-responsive">
-        <table class="table table-bordered table-striped bg-light">
+        <table id="categories-table" class="table table-bordered table-striped bg-light">
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
@@ -45,4 +45,20 @@
         </table>
     </div>
 </div>
+    <!-- Include jQuery and DataTables scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <script>
+        $(document).ready(function () {
+            $('#categories-table').DataTable({
+                pageLength: 10,
+                order: [[0, 'desc']],
+                columnDefs: [
+                    { orderable: false, targets: [4] } // Disable sorting on Actions column
+                ]
+            });
+        });
+    </script>
 @endsection

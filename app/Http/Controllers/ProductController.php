@@ -32,6 +32,7 @@ class ProductController extends Controller
         }
 
         // Paginate and retain filters
+        // appends($request->query()) ensures that filters (category, price) persist in pagination links.
         $products = $query->paginate(12)->appends($request->query());
 
         return view('products-list', compact('products', 'categories'));

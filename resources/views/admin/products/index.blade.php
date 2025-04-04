@@ -3,14 +3,17 @@
 @section('content')
 <div class="container">
     <h1 class="mb-4">Manage Products</h1>
+    
     <a href="{{ route('admin.products.create') }}" class="btn btn-primary mb-4">Add New Product</a>
+    
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
+
     <div class="table-responsive">
-        <table class="table table-bordered table-striped bg-light">
+        <table id="products-table" class="table table-bordered table-striped bg-light">
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
@@ -57,4 +60,21 @@
         </table>
     </div>
 </div>
+    
+    <!-- Include jQuery and DataTables scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <script>
+        $(document).ready(function () {
+            $('#products-table').DataTable({
+                pageLength: 10,
+                order: [[0, 'desc']],
+                columnDefs: [
+                    { orderable: false, targets: [1, 9] } // Disable sorting on image and actions
+                ]
+            });
+        });
+    </script>
 @endsection

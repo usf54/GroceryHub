@@ -92,6 +92,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/add/{id}', [OrderController::class, 'addToCart'])->name('order.add');
     Route::get('/cart', [OrderController::class, 'viewCart'])->name('cart.view');
     Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
-    Route::get('/orders', [OrderController::class, 'viewOrders'])->name('orders.view');
 });
 

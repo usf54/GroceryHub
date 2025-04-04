@@ -37,9 +37,9 @@
         </div>
         <div class="header-icons">
           <!-- Mobile Menu Toggle -->
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <i class="fa-solid fa-bars"></i>
-          </button>
+          </button> -->
           @if (!Auth::user())
             <div class="icon"><a href="{{route('profile.edit')}}"><i class="fa-regular fa-user"></i></a></div>
           @else
