@@ -45,13 +45,15 @@
 
         <h4>Total: ${{ number_format($total, 2) }}</h4>
 
-        <form action="{{ route('cart.checkout') }}" method="POST">
+        <form action=" {{ route('checkout.form' )}} " method="GET" class='py-4'>
             @csrf
             <button type="submit" class="btn btn-success">Proceed to Checkout</button>
         </form>
     @else
-        <p>Your cart is empty.</p>
-        <a href="{{ route('products.list') }}" class="btn btn-primary">Continue Shopping</a>
+        <div class='my-5'>
+            <p>Your cart is empty.</p>
+            <a href="{{ route('products.list') }}" class="btn btn-primary">Continue Shopping</a>
+        </div>
     @endif
 </div>
 @endsection

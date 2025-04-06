@@ -19,6 +19,9 @@
                     <th>User</th>
                     <th>Total</th>
                     <th>Status</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Phone</th>
                     <th>Created At</th>
                     <th>Updated At</th>
                     <th>Actions</th>
@@ -31,6 +34,9 @@
                         <td>{{ $order->user->name ?? 'N/A' }}</td>
                         <td>${{ number_format($order->total, 2) }}</td>
                         <td>{{ ucfirst($order->status) }}</td>
+                        <td>{{ $order->address }}</td>
+                        <td>{{ $order->city }}</td>
+                        <td>{{ $order->phone }}</td>
                         <td>{{ $order->created_at->format('Y-m-d H:i:s') }}</td>
                         <td>{{ $order->updated_at->format('Y-m-d H:i:s') }}</td>
                         <td>

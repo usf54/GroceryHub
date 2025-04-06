@@ -1,42 +1,66 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container mt-5">
-    <h2>Checkout</h2>
-
+<div class="container py-4">
+    <h2 class="mb-4">Checkout</h2>
+    
     @if(session('cart') && count(session('cart')) > 0)
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php $total = 0; @endphp
-                @foreach(session('cart') as $id => $item)
-                    @php $total += $item['subtotal']; @endphp
-                    <tr>
-                        <td>{{ $item['name'] }}</td>
-                        <td>${{ number_format($item['price'], 2) }}</td>
-                        <td>{{ $item['quantity'] }}</td>
-                        <td>${{ number_format($item['subtotal'], 2) }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-        <h4>Total: ${{ number_format($total, 2) }}</h4>
-
-        <form action="{{ route('cart.checkout') }}" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-success">Confirm Order</button>
-        </form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header bg-white">
+                    <h4>Shipping Information</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('checkout.submit') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" name="address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" name="city" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="phone" name="phone" required>
+                        </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h4>Order Summary</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        @foreach(session('cart') as $id => $item)
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>{{ $item['name'] }} × {{ $item['quantity'] }}</span>
+                            <span>${{ number_format($item['subtotal'], 2) }}</span>
+                        </li>
+                        @endforeach
+                        <li class="list-group-item d-flex justify-content-between fw-bold">
+                            <span>Total</span>
+                            <span>${{ number_format($total, 2) }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer bg-white">
+                    <button type="submit" class="btn btn-primary w-100">Place Order</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     @else
-        <p>Your cart is empty.</p>
-        <a href="{{ route('products.list') }}" class="btn btn-primary">Go Back</a>
+    <div class="alert alert-info">
+        Your cart is empty.
+        <a href="{{ route('products.list') }}" class="alert-link">Continue shopping</a>
+    </div>
     @endif
 </div>
 @endsection
