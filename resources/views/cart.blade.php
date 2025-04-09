@@ -27,6 +27,7 @@
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Subtotal</th>
+                    <th>Remove product</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +39,13 @@
                         <td>${{ number_format($item['price'], 2) }}</td>
                         <td>{{ $item['quantity'] }}</td>
                         <td>${{ number_format($item['subtotal'], 2) }}</td>
+                        <td>
+                            <form action="{{ route('cart.remove', $id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

@@ -11,8 +11,25 @@
             <p><strong>Description:</strong> {{ $product->description }}</p>
             <p><strong>Price:</strong> ${{ number_format($product->price, 2) }}</p>
             <p><strong>Stock:</strong> {{ $product->stock }} units</p>
-            
+
+            <!-- Inform about discounts and shipping -->
             @auth
+                <div class="alert alert-info">
+                    <strong>Special Offer:</strong> 
+                    @php
+                        $completedOrders = Auth::user()->orders->where('status', 'completed')->count();
+                        if ($completedOrders >= 3) {
+                            echo "You are eligible for a 5% loyalty discount on your purchase!";
+                        } else {
+                            echo "You can earn a 5% discount on your next purchase after completing 3 orders!";
+                        }
+                    @endphp
+                </div>
+                <div class="alert alert-info">
+                    <strong>Free Shipping:</strong>
+                    If your order subtotal is over $100, you qualify for free shipping! Otherwise, a $10 shipping fee will apply.
+                </div>
+
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}

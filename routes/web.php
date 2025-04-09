@@ -92,7 +92,8 @@ Route::middleware('auth')->group(function () {
     // Cart routes
     Route::post('/order/add/{id}', [OrderController::class, 'addToCart'])->name('order.add');
     Route::get('/cart', [OrderController::class, 'viewCart'])->name('cart.view');
-    
+    Route::delete('/cart/remove/{id}', [OrderController::class, 'remove'])->name('cart.remove');
+
     // Checkout routes
     Route::get('/checkout', [OrderController::class, 'showCheckout'])->name('checkout.form');
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout.submit');

@@ -10,9 +10,7 @@ use App\Models\OrderDetail;
 
 class OrderController extends Controller
 {
-    
-
-    //  Add product to cart (Session-based)
+    // Add product to cart (Session-based)
     public function addToCart(Request $request, $id)
     {
         $product = Product::findOrFail($id);
@@ -43,6 +41,23 @@ class OrderController extends Controller
         return view('cart', compact('cart', 'total'));
     }
 
+    public function remove($id)
+    {
+        // Check if the cart exists in the session
+        if (session()->has('cart')) {
+            $cart = session('cart');
+            
+            // Remove the product from the cart using its ID
+            if (isset($cart[$id])) {
+                unset($cart[$id]);
+                session()->put('cart', $cart); // Update the session with the modified cart
+                return redirect()->back()->with('success', 'Product removed from cart.');
+            }
+        }
+    
+        return redirect()->back()->with('error', 'Product not found in the cart.');
+    }
+    
     // Show Checkout Form
     public function showCheckout()
     {
@@ -53,14 +68,24 @@ class OrderController extends Controller
         }
 
         $total = array_sum(array_column($cart, 'subtotal'));
-        return view('checkout', compact('cart', 'total'));
+
+        // Loyalty Discount: 5% if user has 3+ completed orders
+        $user = Auth::user();
+        $completedOrders = Order::where('user_id', $user->id)->where('status', 'completed')->count();
+        $discount = $completedOrders >= 5 ? round($total * 0.10, 2) : 0;
+
+        // Free Shipping Logic
+        $shipping = ($total >= 100) ? 0 : 10;
+
+        $finalTotal = $total - $discount + $shipping;
+
+        return view('checkout', compact('cart', 'total', 'discount', 'shipping', 'finalTotal'));
     }
 
     // Process Checkout
     public function checkout(Request $request)
     {
         $cart = session()->get('cart', []);
-        
         if (empty($cart)) {
             return redirect()->route('cart.view')->with('error', 'Your cart is empty!');
         }
@@ -71,27 +96,40 @@ class OrderController extends Controller
             'phone'   => 'required|string|max:20',
         ]);
 
-        // Create order
+        $user = Auth::user();
+        $subtotal = array_sum(array_column($cart, 'subtotal'));
+
+        // Loyalty Discount: 5% if user has 3+ completed orders
+        $completedOrders = Order::where('user_id', $user->id)->where('status', 'completed')->count();
+        $discount = $completedOrders >= 5 ? round($subtotal * 0.10, 2) : 0;
+
+        // Free Shipping Logic
+        $shipping = ($subtotal >= 100) ? 0 : 10;
+
+        $finalTotal = $subtotal - $discount + $shipping;
+
         $order = Order::create([
-            'user_id'    => Auth::id(),
+            'user_id'    => $user->id,
             'status'     => 'pending',
             'order_date' => now(),
-            'address'    => $request->address,  
+            'address'    => $request->address,
             'city'       => $request->city,
             'phone'      => $request->phone,
-            'total'      => array_sum(array_column($cart, 'subtotal')),
+            'total'      => $subtotal,
+            'discount'   => $discount,
+            'shipping'   => $shipping,
+            'final_total'=> $finalTotal,
         ]);
 
-        // Create order details
         foreach ($cart as $productId => $item) {
             OrderDetail::create([
                 'order_id'   => $order->id,
                 'product_id' => $productId,
                 'quantity'   => $item['quantity'],
-                'price'     => $item['price'],
+                'price'      => $item['price'],
                 'subtotal'   => $item['subtotal'],
             ]);
-            //  Reduce stock after order
+
             $product = Product::find($productId);
             if ($product) {
                 $product->stock -= $item['quantity'];
@@ -102,9 +140,8 @@ class OrderController extends Controller
         session()->forget('cart');
 
         return redirect()->route('products.list')
-            ->with('success', 'Order placed successfully! Your order ID is #'.$order->id);
+            ->with('success', 'Order placed successfully! You saved $' . number_format($discount, 2) . '. Order ID: #' . $order->id);
     }
-
     // Admin order management methods...
     public function index()
     {

@@ -57,7 +57,10 @@
                 <span class="me-2">{{ Auth::user()->name }}</span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
+                @if ( Auth::user()->role === 'admin')
+                  <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                @endif
+                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Edit Profile</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
