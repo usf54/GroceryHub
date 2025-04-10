@@ -119,15 +119,28 @@
         </div>
     </div>
 </section>
-
-<div class="banners">
-    <div class="banner1">
-      <img src="{{asset('assets/img/banners/banner1.jpg')}}" alt="banner">
+<div id="carouselExampleControls" class="carousel slide custom-carousel" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="{{asset('assets/img/banners/banner1.jpg')}}" alt="First slide">
     </div>
-    <div class="banner2">
-      <img src="{{asset('assets/img/banners/banner2.jpg')}}" alt="banner">
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{{asset('assets/img/banners/banner2.jpg')}}" alt="Second slide">
     </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{{asset('assets/img/banners/banner3.jpg')}}" alt="Third slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
 </div>
+
 <div class="section-title">
     <h2>Lifestyle Preferences</h2>
 </div>
@@ -148,22 +161,23 @@
 </div>
 <!-- Coming Soon -->
 <section class="py-5 my-5">
-      <div class="container-fluid">
-        <div class="bg-warning py-5 rounded-5" style="background-image: url({{ asset('assets/img/bg-pattern-2.png')}}) no-repeat;">
-          <div class="container">
-            <div class="row">
-              
-              <div class="col-md-8">
-                <h2 class="my-5"><strong>Coming Soon!! :</strong> Shop faster with GroceryHub App</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames semper erat ac in suspendisse iaculis. Amet blandit tortor praesent ante vitae. A, enim pretiummi senectus magna. Sagittis sed ptibus liberolectus non et psryroin.</p>
-                <div class="d-flex gap-2 flex-wrap">
-                  <img src="{{ asset('assets/img/app-store.jpg')}}" alt="app-store">
-                  <img src="{{ asset('assets/img/google-play.jpg')}}" alt="google-play">
-                </div>
-              </div>
+  <div class="container-fluid">
+    <div class="bg-warning py-5 rounded-5" style="background-image: url({{ asset('assets/img/bg-pattern-2.png')}}) no-repeat;">
+      <div class="container">
+        <div class="row">
+          
+          <div class="col-md-8">
+            <h2 class="my-5"><strong>Coming Soon!! :</strong> Shop faster with GroceryHub App</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames semper erat ac in suspendisse iaculis. Amet blandit tortor praesent ante vitae. A, enim pretiummi senectus magna. Sagittis sed ptibus liberolectus non et psryroin.</p>
+            <div class="d-flex gap-2 flex-wrap">
+              <img src="{{ asset('assets/img/app-store.jpg')}}" alt="app-store">
+              <img src="{{ asset('assets/img/google-play.jpg')}}" alt="google-play">
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
 @endsection
