@@ -32,14 +32,12 @@
           </a>
         </div>
         <div class="search-bar">
-          <input type="text" placeholder='Search (Vegetables, Fruits.. etc.)'>
-          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="live-search" placeholder="Search (Vegetables, Fruits.. etc.)" autocomplete="off">
+          <div id="search-results" class="live-results"></div>
         </div>
+
+
         <div class="header-icons">
-          <!-- Mobile Menu Toggle -->
-          <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <i class="fa-solid fa-bars"></i>
-          </button> -->
           @if (!Auth::user())
             <div class="icon"><a href="{{route('profile.edit')}}"><i class="fa-regular fa-user"></i></a></div>
           @else
@@ -139,6 +137,54 @@
           <a class="text-white" href="#">GroceryHub</a>
         </div>
     </footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          const searchInput = document.getElementById('live-search');
+          const resultsBox = document.getElementById('search-results');
+
+          searchInput.addEventListener('input', function () {
+              const query = this.value.trim();
+
+              if (query.length < 2) {
+                  resultsBox.style.display = 'none';
+                  resultsBox.innerHTML = '';
+                  return;
+              }
+
+              fetch(`/live-search?query=${encodeURIComponent(query)}`)
+                  .then(res => res.json())
+                  .then(data => {
+                      resultsBox.innerHTML = '';
+                      if (data.length > 0) {
+                          data.forEach(product => {
+                              const item = document.createElement('a');
+                              item.href = `/products/${product.id}`;
+                              item.classList.add('search-result-item');
+                              item.innerHTML = `
+                                  <div class="d-flex align-items-center gap-2 p-2">
+                                      <img src="/storage/${product.img}" alt="${product.name}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px;">
+                                      <span>${product.name}</span>
+                                  </div>
+                              `;
+                              resultsBox.appendChild(item);
+                          });
+
+                          resultsBox.style.display = 'block';
+                      } else {
+                          resultsBox.innerHTML = '<div class="p-2 text-muted">No results found.</div>';
+                          resultsBox.style.display = 'block';
+                      }
+                  });
+          });
+
+          document.addEventListener('click', (e) => {
+              if (!searchInput.contains(e.target) && !resultsBox.contains(e.target)) {
+                  resultsBox.style.display = 'none';
+              }
+          });
+      });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

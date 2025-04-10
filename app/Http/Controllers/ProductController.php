@@ -16,6 +16,17 @@ class ProductController extends Controller
         return view('home', compact('products'));
     }
 
+    public function liveSearch(Request $request)
+    {
+        $query = $request->input('query');
+    
+        $products = Product::where('name', 'LIKE', "%{$query}%")
+            ->limit(10)
+            ->get(['id', 'name', 'img']); 
+
+        return response()->json($products);
+    }
+    
     public function showAllProducts(Request $request)
     {
         $categories = Category::all();
@@ -37,8 +48,6 @@ class ProductController extends Controller
 
         return view('products-list', compact('products', 'categories'));
     }
-
-
 
     // Show a specific product
     public function show($id)

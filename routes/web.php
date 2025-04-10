@@ -15,6 +15,8 @@ Route::get('/', [ProductController::class, 'home'])->name('home');
 Route::get('/products/list', [ProductController::class, 'showAllProducts'])->name('products.list');  
 // Product Details (Fixed)
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show');
+// Search
+Route::get('/live-search', [ProductController::class, 'liveSearch']);
 
 // ================================= CRUD =======================================================
 // Products CRUD Routes
