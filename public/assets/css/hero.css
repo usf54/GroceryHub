@@ -137,6 +137,42 @@
         top: -19px;
     }
 }
+/* features  */
+.features-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1500px;
+    margin: 80px auto;
+    gap: 20px;
+}
+
+.feature {
+    background-color: #F4F6F8;
+    padding: 30px 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+    transition: transform 0.3s ease;
+}
+
+.feature-icon {
+    font-size: 85px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.feature-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.feature-description {
+    font-size: 18px;
+    color: #666;
+}
 
 .bold-title {
     font-size: 2rem; /* Smaller title size for mobile */

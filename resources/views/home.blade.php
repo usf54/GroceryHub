@@ -56,7 +56,39 @@
       </div>
     </div>
 </div>
-
+<div class="features-container">
+        <div class="feature">
+            <div class="feature-icon">
+                <i class="fas fa-truck"></i>
+            </div>
+            <div class="feature-title">Free Shipping</div>
+            <div class="feature-description">Free on order over $100</div>
+        </div>
+        
+        <div class="feature">
+            <div class="feature-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <div class="feature-title">Cash on Delievry</div>
+            <div class="feature-description">100% security payment</div>
+        </div>
+        
+        <div class="feature">
+            <div class="feature-icon">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+            <div class="feature-title">30 Day Return</div>
+            <div class="feature-description">30 day money guarantee</div>
+        </div>
+        
+        <div class="feature">
+            <div class="feature-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <div class="feature-title">24/7 Support</div>
+            <div class="feature-description">Support every time fast</div>
+        </div>
+    </div>
 <div class="section-title">
     <h2>Categories</h2>
 </div>
