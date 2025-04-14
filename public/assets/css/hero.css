@@ -301,6 +301,24 @@
     max-width: 1250px; /* Adjust the width to your desired size */
     margin: 0 auto;   /* Center the container */
 }
+.category-section .container-lg {
+    max-width: 1250px !important;
+}
+.category-section .container-lg {
+    max-width: 1250px !important;
+}
+
+.category-carousel .swiper-slide {
+    width: 250.333px !important;
+    margin-right: 20px;
+}
+#btn-cart {
+    width: 417px;
+    
+}
+.swiper-slide {
+    width: 23% !important;
+}
 .product-tabs .nav-tabs {
     justify-content: flex-end;
     border: none;

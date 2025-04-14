@@ -2,10 +2,15 @@
 @section('title','Home | GroceryHub')
 @push('styles')
   <link rel="stylesheet" href="{{ asset('assets/css/hero.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+
 @endpush
 @section('content')
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <defs>
+        <symbol xmlns="http://www.w3.org/2000/svg" id="cart" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M8.5 19a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 8.5 19ZM19 16H7a1 1 0 0 1 0-2h8.491a3.013 3.013 0 0 0 2.885-2.176l1.585-5.55A1 1 0 0 0 19 5H6.74a3.007 3.007 0 0 0-2.82-2H3a1 1 0 0 0 0 2h.921a1.005 1.005 0 0 1 .962.725l.155.545v.005l1.641 5.742A3 3 0 0 0 7 18h12a1 1 0 0 0 0-2Zm-1.326-9l-1.22 4.274a1.005 1.005 0 0 1-.963.726H8.754l-.255-.892L7.326 7ZM16.5 19a1.5 1.5 0 1 0 1.5 1.5a1.5 1.5 0 0 0-1.5-1.5Z"/>
+        </symbol>
         <symbol id="arrow-right" viewBox="0 0 24 24" fill="currentColor">
           <path d="M13 5l7 7-7 7M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </symbol>
@@ -89,25 +94,63 @@
             <div class="feature-description">Support every time fast</div>
         </div>
     </div>
-<div class="section-title">
-    <h2>Categories</h2>
-</div>
-
-<!-- Categories Section -->
-<div class="categories">
-    <div class="category-item">
-      <img src="{{ asset('assets/img/category/snacks.jpg')}}" alt="">
+<section class="py-5 overflow-hidden category-section">
+  <div class="container-lg">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-header d-flex flex-wrap justify-content-between mb-5">
+          <h2 class="section-title">Category</h2>
+          <div class="d-flex align-items-center">
+            <div class="swiper-buttons">
+              <button class="swiper-prev category-carousel-prev btn btn-yellow">❮</button>
+              <button class="swiper-next category-carousel-next btn btn-yellow">❯</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="category-item">
-      <img src="{{ asset('assets/img/category/coffee&tea.jpg')}}" alt="">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="category-carousel swiper">
+          <div class="swiper-wrapper">
+            <a href="category.html" class="nav-link swiper-slide text-center">
+              <img src="{{ asset('assets/img/category-thumb-1.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
+              <h4 class="fs-6 mt-3 fw-normal category-title">Fruits & Veges</h4>
+            </a>
+            <a href="category.html" class="nav-link swiper-slide text-center">
+              <img src="{{ asset('assets/img/category-thumb-2.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
+              <h4 class="fs-6 mt-3 fw-normal category-title">Breads & Sweets</h4>
+            </a>
+            <a href="category.html" class="nav-link swiper-slide text-center">
+              <img src="{{ asset('assets/img/category-thumb-3.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
+              <h4 class="fs-6 mt-3 fw-normal category-title">Fruits & Veges</h4>
+            </a>
+            <a href="category.html" class="nav-link swiper-slide text-center">
+              <img src="{{ asset('assets/img/category-thumb-4.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
+              <h4 class="fs-6 mt-3 fw-normal category-title">Beverages</h4>
+            </a>
+            <a href="category.html" class="nav-link swiper-slide text-center">
+              <img src="{{ asset('assets/img/category-thumb-5.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
+              <h4 class="fs-6 mt-3 fw-normal category-title">Meat Products</h4>
+            </a>
+            <a href="category.html" class="nav-link swiper-slide text-center">
+              <img src="{{ asset('assets/img/category-thumb-6.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
+              <h4 class="fs-6 mt-3 fw-normal category-title">Breads</h4>
+            </a>
+            <a href="category.html" class="nav-link swiper-slide text-center">
+              <img src="{{ asset('assets/img/category-thumb-7.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
+              <h4 class="fs-6 mt-3 fw-normal category-title">Fruits & Veges</h4>
+            </a>
+            <a href="category.html" class="nav-link swiper-slide text-center">
+              <img src="{{ asset('assets/img/category-thumb-8.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
+              <h4 class="fs-6 mt-3 fw-normal category-title">Breads & Sweets</h4>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="category-item">
-      <img src="{{ asset('assets/img/category/snacks.jpg')}}" alt="">
-    </div>
-    <div class="category-item">
-      <img src="{{ asset('assets/img/category/pasteries.jpg')}}" alt="">
-    </div>
-</div>
+  </div>
+</section>
 
 <section class="py-5 centered-section">
     <div class="container">
@@ -124,23 +167,28 @@
                         <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
                             <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
                                 @foreach ($products as $product)
+
                                     <div class="col">
-                                        <div class="product-item">
-                                            <figure>
-                                              <a href="{{ route('product.show', $product->id) }}" title="{{ $product->name }}">
-                                                <img src="{{ asset('storage/' . $product->img) }}" class="tab-image" alt="{{ $product->name }}">
-                                              </a>
-                                            </figure>
-                                            <h3>{{ $product->name }}</h3>
-                                            <span class="qty">1 Unit</span>
-                                            <span class="rating">
-                                                <svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> | Stock :{{$product->stock}}
-                                            </span>
-                                            <span class="price">${{ number_format($product->price, 2) }}</span>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></iconify-icon></a>
+                                      <div class="product-item">
+                                        <figure>
+                                          <a href="{{ route('product.show', $product->id) }}" title="{{ $product->name }}">
+                                            <img src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}" class="tab-image">
+                                          </a>
+                                        </figure>
+                                        <div class="d-flex flex-column text-center">
+                                          <h3 class="fs-6 fw-normal">{{ $product->name }}</h3>
+                                          <span>({{$product->stock}})</span>        
+                                          <div class="d-flex justify-content-center align-items-center gap-2">
+                                            <span class="text-dark fw-bold">{{ number_format($product->price, 2) }} mad</span>
+                                            <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                                          </div>
+                                          <div class="button-area p-3 pt-0">
+                                            <div class="row g-1 mt-2">
+                                              <div class="col-7" id="btn-cart"><a href="{{ route('product.show', $product->id) }}" class="btn btn-warning rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> View More</a></div>
                                             </div>
+                                          </div>
                                         </div>
+                                      </div>
                                     </div>
                                 @endforeach
                             </div>
@@ -174,6 +222,96 @@
   </a>
 </div>
 
+<section id="featured-products" class="products-carousel">
+  <div class="container-lg overflow-hidden py-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-header d-flex flex-wrap justify-content-between my-4">
+          <h2 class="section-title">Featured products</h2>
+          <div class="d-flex align-items-center">
+            <div class="swiper-buttons">
+              <button class="swiper-prev category-carousel-prev btn btn-yellow">❮</button>
+              <button class="swiper-next category-carousel-next btn btn-yellow">❯</button>
+            </div>  
+          </div>
+        </div>
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            @foreach ($randomProducts as $rproduct)
+              <div class="product-item swiper-slide">
+                <figure>
+                  <a href="{{ route('product.show', $rproduct->id) }}" title="{{ $rproduct->name }}">
+                    <img src="{{ asset('storage/' . $rproduct->img) }}" alt="{{ $rproduct->name }}" class="tab-image">
+                  </a>
+                </figure>
+                <div class="d-flex flex-column text-center">
+                  <h3 class="fs-6 fw-normal">{{ $rproduct->name }}</h3>
+                  <div>
+                    <span>{{ $rproduct->stock }}</span>
+                  </div>
+                  <div class="d-flex justify-content-center align-items-center gap-2">
+                    <span class="text-dark fw-semibold">{{ number_format($rproduct->price, 2) }} mad</span>
+                    <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                  </div>
+                  <div class="button-area p-3 pt-0">
+                    <div class="row g-1 mt-2">
+                      <div class="col-7" id="btn-cart"><a href="{{ route('product.show', $rproduct->id) }}" class="btn btn-warning rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> View Product</a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="featured-products" class="products-carousel">
+  <div class="container-lg overflow-hidden py-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-header d-flex flex-wrap justify-content-between my-4">
+          <h2 class="section-title">Just arrived</h2>
+          <div class="d-flex align-items-center">
+            <div class="swiper-buttons">
+              <button class="swiper-prev category-carousel-prev btn btn-yellow">❮</button>
+              <button class="swiper-next category-carousel-next btn btn-yellow">❯</button>
+            </div>  
+          </div>
+        </div>
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            @foreach ($latestProducts as $lproduct)
+              <div class="product-item swiper-slide">
+                <figure>
+                  <a href="{{ route('product.show', $lproduct->id) }}" title="{{ $lproduct->name }}">
+                    <img src="{{ asset('storage/' . $lproduct->img) }}" alt="{{ $lproduct->name }}" class="tab-image">
+                  </a>
+                </figure>
+                <div class="d-flex flex-column text-center">
+                  <h3 class="fs-6 fw-normal">{{ $lproduct->name }}</h3>
+                  <div>
+                    <span>{{ $lproduct->stock }}</span>
+                  </div>
+                  <div class="d-flex justify-content-center align-items-center gap-2">
+                    <span class="text-dark fw-semibold">{{ number_format($lproduct->price, 2) }} mad</span>
+                    <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                  </div>
+                  <div class="button-area p-3 pt-0">
+                    <div class="row g-1 mt-2">
+                      <div class="col-7" id="btn-cart"><a href="{{ route('product.show', $lproduct->id) }}" class="btn btn-warning rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> View Product</a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <div class="section-title">
     <h2>Lifestyle Preferences</h2>
 </div>
@@ -212,5 +350,50 @@
     </div>
   </div>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script>
+  // First Swiper
+  const categorySwiper = new Swiper('.category-carousel', {
+    slidesPerView: 4,
+    spaceBetween: 30,
+    navigation: {
+      nextEl: '.category-carousel-next',
+      prevEl: '.category-carousel-prev',
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 3,
+      },
+      576: {
+        slidesPerView: 2,
+      },
+      0: {
+        slidesPerView: 1,
+      },
+    }
+  });
+  
+  // Second Swiper
+  const swiper = new Swiper('.swiper', {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    loop: true,
+    navigation: {
+      nextEl: '.category-carousel-next',
+      prevEl: '.category-carousel-prev',
+    },
+    breakpoints: {
+      576: {
+        slidesPerView: 2,
+      },
+      768: {
+        slidesPerView: 3,
+      },
+      992: {
+        slidesPerView: 4,
+      },
+    }
+  });
 
+</script>
 @endsection
