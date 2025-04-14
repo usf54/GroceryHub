@@ -109,14 +109,14 @@
     </div>
 </div>
 
-<section class="py-5">
-    <div class="container-fluid">
+<section class="py-5 centered-section">
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="bootstrap-tabs product-tabs">
                     <div class="tabs-header d-flex justify-content-between border-bottom my-5">
                         <h3>Trending Products</h3>
-                        <a href="{{ route('products.list')}} " class="btn d-flex align-items-center" id="show-all-btn" style="border-color: #ff9800; color: #ff9800;">
+                        <a href="{{ route('products.list')}}" class="btn d-flex align-items-center" id="show-all-btn" style="border-color: #ff9800; color: #ff9800;">
                             Show All <svg width="20" height="20" class="ms-1"><use xlink:href="#arrow-right"></use></svg>
                         </a>
                     </div>
@@ -151,6 +151,7 @@
         </div>
     </div>
 </section>
+
 <div id="carouselExampleControls" class="carousel slide custom-carousel" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">

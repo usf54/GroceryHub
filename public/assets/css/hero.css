@@ -142,22 +142,22 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    max-width: 1500px;
+    max-width: 1000px;
     margin: 80px auto;
     gap: 20px;
 }
 
 .feature {
     background-color: #F4F6F8;
-    padding: 30px 20px;
+    padding: 10px 15px;
     border-radius: 8px;
     text-align: center;
-    width: 300px;
+    width: 234px;
     transition: transform 0.3s ease;
 }
 
 .feature-icon {
-    font-size: 85px;
+    font-size: 45px;
     color: var(--primary-color);
     margin-bottom: 15px;
 }
@@ -297,6 +297,10 @@
 }
 
 /* product tabs */
+.centered-section .container {
+    max-width: 1250px; /* Adjust the width to your desired size */
+    margin: 0 auto;   /* Center the container */
+}
 .product-tabs .nav-tabs {
     justify-content: flex-end;
     border: none;
