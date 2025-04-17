@@ -26,7 +26,12 @@
                             @endforeach
                         </ul>
 
-                        <a href="#" class="btn btn-primary">Order Now</a>
+                        <form action="{{ route('order.addPack', $pack->id) }}" method="POST">
+                            @csrf
+                            <input type="number" name="quantity" value="1" min="1" max="{{ $pack->stock }}" class="form-control mb-2">
+                            <button type="submit" class="btn btn-primary w-100 mb-2">Order Now</button>
+                        </form>
+                        <a href="{{ route('packs.show', $pack->id) }}" class="btn btn-outline-primary w-100">Show Details</a>
                     </div>
                 </div>
             </div>

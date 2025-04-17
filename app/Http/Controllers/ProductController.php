@@ -55,7 +55,26 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        return view('product-details', compact('product')); 
+        
+        // Get recommended products (same category, excluding current product, random order)
+        $recommendedProducts = Product::where('category_id', $product->category_id)
+                                    ->where('id', '!=', $id)
+                                    ->inRandomOrder()
+                                    ->limit(4)
+                                    ->get();
+        
+        // If not enough products in same category, fill with random products
+        if ($recommendedProducts->count() < 4) {
+            $additionalProducts = Product::where('category_id', '!=', $product->category_id)
+                                        ->where('id', '!=', $id)
+                                        ->inRandomOrder()
+                                        ->limit(4 - $recommendedProducts->count())
+                                        ->get();
+            
+            $recommendedProducts = $recommendedProducts->merge($additionalProducts);
+        }
+        
+        return view('product-details', compact('product', 'recommendedProducts')); 
     }
 
     // Manage Products
