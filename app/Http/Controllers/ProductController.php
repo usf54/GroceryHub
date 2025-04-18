@@ -11,11 +11,12 @@ class ProductController extends Controller
 {
     public function home()
     {
+        $categories = Category::all();
         $products = Product::take(10)->get();
         $randomProducts = Product::inRandomOrder()->take(10)->get();
         $latestProducts = Product::latest()->take(10)->get();
 
-        return view('home', compact('products','randomProducts','latestProducts'));
+        return view('home', compact('categories','products','randomProducts','latestProducts'));
     }
 
     public function liveSearch(Request $request)

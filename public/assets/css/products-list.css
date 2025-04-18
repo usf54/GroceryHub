@@ -229,3 +229,14 @@
       font-size: 14px;
   }
 }
+.warning-range::-webkit-slider-thumb {
+  background-color: #ffc107 !important; /* Bootstrap warning color */
+}
+
+.warning-range::-moz-range-thumb {
+  background-color: #ffc107 !important;
+}
+
+.warning-range::-ms-thumb {
+  background-color: #ffc107 !important;
+}

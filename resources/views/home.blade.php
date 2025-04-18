@@ -113,38 +113,12 @@
       <div class="col-md-12">
         <div class="category-carousel swiper">
           <div class="swiper-wrapper">
-            <a href="category.html" class="nav-link swiper-slide text-center">
-              <img src="{{ asset('assets/img/category-thumb-1.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
-              <h4 class="fs-6 mt-3 fw-normal category-title">Fruits & Veges</h4>
-            </a>
-            <a href="category.html" class="nav-link swiper-slide text-center">
-              <img src="{{ asset('assets/img/category-thumb-2.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
-              <h4 class="fs-6 mt-3 fw-normal category-title">Breads & Sweets</h4>
-            </a>
-            <a href="category.html" class="nav-link swiper-slide text-center">
-              <img src="{{ asset('assets/img/category-thumb-3.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
-              <h4 class="fs-6 mt-3 fw-normal category-title">Fruits & Veges</h4>
-            </a>
-            <a href="category.html" class="nav-link swiper-slide text-center">
-              <img src="{{ asset('assets/img/category-thumb-4.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
-              <h4 class="fs-6 mt-3 fw-normal category-title">Beverages</h4>
-            </a>
-            <a href="category.html" class="nav-link swiper-slide text-center">
-              <img src="{{ asset('assets/img/category-thumb-5.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
-              <h4 class="fs-6 mt-3 fw-normal category-title">Meat Products</h4>
-            </a>
-            <a href="category.html" class="nav-link swiper-slide text-center">
-              <img src="{{ asset('assets/img/category-thumb-6.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
-              <h4 class="fs-6 mt-3 fw-normal category-title">Breads</h4>
-            </a>
-            <a href="category.html" class="nav-link swiper-slide text-center">
-              <img src="{{ asset('assets/img/category-thumb-7.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
-              <h4 class="fs-6 mt-3 fw-normal category-title">Fruits & Veges</h4>
-            </a>
-            <a href="category.html" class="nav-link swiper-slide text-center">
-              <img src="{{ asset('assets/img/category-thumb-8.jpg') }}" class="rounded-circle" alt="Category Thumbnail">
-              <h4 class="fs-6 mt-3 fw-normal category-title">Breads & Sweets</h4>
-            </a>
+            @foreach ($categories as $category)
+                <a href="{{ route('products.list', ['category' => $category->id]) }}" class="nav-link swiper-slide text-center">
+                    <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}"  class="rounded-circle" width="150" height='150'>
+                    <h4 class="fs-6 mt-3 fw-normal category-title">{{ $category->name }}</h4>
+                </a>
+            @endforeach
           </div>
         </div>
       </div>
@@ -158,7 +132,7 @@
             <div class="col-md-12">
                 <div class="bootstrap-tabs product-tabs">
                     <div class="tabs-header d-flex justify-content-between border-bottom my-5">
-                        <h3>Trending Products</h3>
+                        <h2  class="section-title">Trending Products</h2>
                         <a href="{{ route('products.list')}}" class="btn d-flex align-items-center" id="show-all-btn" style="border-color: #ff9800; color: #ff9800;">
                             Show All <svg width="20" height="20" class="ms-1"><use xlink:href="#arrow-right"></use></svg>
                         </a>
@@ -177,10 +151,11 @@
                                         </figure>
                                         <div class="d-flex flex-column text-center">
                                           <h3 class="fs-6 fw-normal">{{ $product->name }}</h3>
-                                          <span>({{$product->stock}})</span>        
+                                          <span class="badge {{ $product->stock > 0 ? 'text-success' : 'text-danger' }}">
+                                              {{ $product->stock > 0 ? 'Available' : 'Not available' }}
+                                          </span>
                                           <div class="d-flex justify-content-center align-items-center gap-2">
                                             <span class="text-dark fw-bold">{{ number_format($product->price, 2) }} mad</span>
-                                            <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
                                           </div>
                                           <div class="button-area p-3 pt-0">
                                             <div class="row g-1 mt-2">
@@ -247,11 +222,12 @@
                 <div class="d-flex flex-column text-center">
                   <h3 class="fs-6 fw-normal">{{ $rproduct->name }}</h3>
                   <div>
-                    <span>{{ $rproduct->stock }}</span>
+                    <span class="badge {{ $rproduct->stock > 0 ? 'text-success' : 'text-danger' }}">
+                        {{ $rproduct->stock > 0 ? 'Available' : 'Not available' }}
+                    </span>
                   </div>
                   <div class="d-flex justify-content-center align-items-center gap-2">
                     <span class="text-dark fw-semibold">{{ number_format($rproduct->price, 2) }} mad</span>
-                    <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
                   </div>
                   <div class="button-area p-3 pt-0">
                     <div class="row g-1 mt-2">
@@ -292,7 +268,9 @@
                 <div class="d-flex flex-column text-center">
                   <h3 class="fs-6 fw-normal">{{ $lproduct->name }}</h3>
                   <div>
-                    <span>{{ $lproduct->stock }}</span>
+                    <span class="badge {{ $lproduct->stock > 0 ? 'text-success' : 'text-danger' }}">
+                        {{ $lproduct->stock > 0 ? 'Available' : 'Not available' }}
+                    </span>
                   </div>
                   <div class="d-flex justify-content-center align-items-center gap-2">
                     <span class="text-dark fw-semibold">{{ number_format($lproduct->price, 2) }} mad</span>
@@ -312,11 +290,11 @@
     </div>
   </div>
 </section>
-<div class="section-title">
+<!-- <div class="section-title">
     <h2>Lifestyle Preferences</h2>
-</div>
+</div> -->
 <!-- Preferences Section -->
-<div class="preferences">
+<!-- <div class="preferences">
     <div class="preference-item">
       <img src="{{ asset('assets/img/lifestyle/gluten.png')}}" alt="">
     </div>
@@ -329,7 +307,7 @@
     <div class="preference-item">
       <img src="{{ asset('assets/img/lifestyle/vegetarian.jpeg')}}" alt="">
     </div>
-</div>
+</div> -->
 <!-- Coming Soon -->
 <section class="py-5 my-5">
   <div class="container-fluid">
@@ -361,16 +339,18 @@
       prevEl: '.category-carousel-prev',
     },
     breakpoints: {
-      768: {
-        slidesPerView: 3,
-      },
-      576: {
-        slidesPerView: 2,
-      },
-      0: {
-        slidesPerView: 1,
-      },
-    }
+    576: {
+      slidesPerView: 2,
+      spaceBetween: 20,
+    },
+    768: {
+      slidesPerView: 3,
+      spaceBetween: 30,
+    },
+    992: {
+      slidesPerView: 4,
+      spaceBetween: 30,
+    }}
   });
   
   // Second Swiper
@@ -383,17 +363,19 @@
       prevEl: '.category-carousel-prev',
     },
     breakpoints: {
-      576: {
-        slidesPerView: 2,
-      },
-      768: {
-        slidesPerView: 3,
-      },
-      992: {
-        slidesPerView: 4,
-      },
+    576: {
+      slidesPerView: 2,
+      spaceBetween: 20,
+    },
+    768: {
+      slidesPerView: 3,
+      spaceBetween: 30,
+    },
+    992: {
+      slidesPerView: 4,
+      spaceBetween: 30,
     }
-  });
+  }});
 
 </script>
 @endsection

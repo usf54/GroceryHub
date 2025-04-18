@@ -23,7 +23,7 @@
                 <ul class="list-unstyled">
                     <li class="mb-3">
                         <label for="category" class="form-label">Category</label>
-                        <select id="category" name="category" class="form-select">
+                        <select id="category" name="category" class="form-select border-warning">
                             <option value="">All Categories</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
@@ -34,11 +34,11 @@
                     </li>
                     <li class="mb-3">
                         <label for="price" class="form-label">Price Range</label>
-                        <input type="range" id="price" name="price" class="form-range" min="0" max="100" value="{{ request('price', 100) }}" step="10">
+                        <input type="range" id="price" name="price" class="form-range warning-range" min="0" max="100" value="{{ request('price', 100) }}" step="10">
                         <span id="price-value" class="d-block text-center">${{ request('price', 100) }}</span>
                     </li>
                 </ul>
-                <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                <button type="submit" class="btn btn-warning w-100">Apply Filters</button>
             </div>
         </form>
 

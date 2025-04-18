@@ -18,6 +18,7 @@
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
+                    <th>Image</th>
                     <th>Name</th>
                     <th>Created At</th>
                     <th>Updated At</th>
@@ -28,6 +29,13 @@
                 @foreach ($categories as $category)
                     <tr>
                         <td>{{ $category->id }}</td>
+                        <td>
+                            @if ($category->image)
+                                <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" class="img-thumbnail" style="width: 100px; height: 100px;">
+                            @else
+                                <span class="text-muted">No Image</span>
+                            @endif
+                        </td>
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->created_at->format('Y-m-d H:i:s') }}</td>
                         <td>{{ $category->updated_at->format('Y-m-d H:i:s') }}</td>
