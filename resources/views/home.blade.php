@@ -158,8 +158,14 @@
                                             <span class="text-dark fw-bold">{{ number_format($product->price, 2) }} mad</span>
                                           </div>
                                           <div class="button-area p-3 pt-0">
-                                            <div class="row g-1 mt-2">
-                                              <div class="col-7" id="btn-cart"><a href="{{ route('product.show', $product->id) }}" class="btn btn-warning rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> View More</a></div>
+                                            <div class="d-flex justify-content-center">
+                                              <div class="row g-1 mt-2">
+                                                <div class="col-7" id="btn-cart">
+                                                  <a href="{{ route('product.show', $product->id) }}" class="btn btn-warning rounded-1 p-2 fs-7 btn-cart">
+                                                    <svg width="18" height="18"><use xlink:href="#cart"></use></svg> View More
+                                                  </a>
+                                                </div>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>
@@ -230,7 +236,7 @@
                     <span class="text-dark fw-semibold">{{ number_format($rproduct->price, 2) }} mad</span>
                   </div>
                   <div class="button-area p-3 pt-0">
-                    <div class="row g-1 mt-2">
+                    <div class="row g-1 mt-2" style="display: flex;justify-content: center;">
                       <div class="col-7" id="btn-cart"><a href="{{ route('product.show', $rproduct->id) }}" class="btn btn-warning rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> View Product</a></div>
                     </div>
                   </div>
@@ -277,7 +283,7 @@
                     <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
                   </div>
                   <div class="button-area p-3 pt-0">
-                    <div class="row g-1 mt-2">
+                    <div class="row g-1 mt-2" style="display: flex;justify-content: center;">
                       <div class="col-7" id="btn-cart"><a href="{{ route('product.show', $lproduct->id) }}" class="btn btn-warning rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> View Product</a></div>
                     </div>
                   </div>
@@ -337,21 +343,8 @@
     navigation: {
       nextEl: '.category-carousel-next',
       prevEl: '.category-carousel-prev',
-    },
-    breakpoints: {
-    576: {
-      slidesPerView: 2,
-      spaceBetween: 20,
-    },
-    768: {
-      slidesPerView: 3,
-      spaceBetween: 30,
-    },
-    992: {
-      slidesPerView: 4,
-      spaceBetween: 30,
-    }}
-  });
+      }}
+    );
   
   // Second Swiper
   const swiper = new Swiper('.swiper', {
@@ -361,21 +354,8 @@
     navigation: {
       nextEl: '.category-carousel-next',
       prevEl: '.category-carousel-prev',
-    },
-    breakpoints: {
-    576: {
-      slidesPerView: 2,
-      spaceBetween: 20,
-    },
-    768: {
-      slidesPerView: 3,
-      spaceBetween: 30,
-    },
-    992: {
-      slidesPerView: 4,
-      spaceBetween: 30,
-    }
-  }});
+  }}
+);
 
 </script>
 @endsection

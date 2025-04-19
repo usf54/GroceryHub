@@ -57,6 +57,7 @@ html {
     padding: 8px 20px; /* Adjusted padding for better spacing */
     align-items: center;
     flex-wrap: wrap;
+    align-content: center;
     
 }
 
@@ -158,13 +159,16 @@ html {
 
 .header-icons .icon {
     border-radius: 50%;
-    padding: 10px 13px;
+    padding: 19px 24px;
     background-color: #f8f8f8;
     color: black;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
 } 
+.header-icons .icon i{
+    color: var(--primary-color);
+}
 .navbar-toggler i {
     border-radius: 50%;
     padding: 10px 13px;

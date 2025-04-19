@@ -40,16 +40,16 @@
                     <div class="input-group mb-3">
                         <input type="number" class="form-control" name="quantity" value="1" min="1" max="{{ $product->stock }}">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">Add to Cart</button>
+                            <button class="btn btn-warning" type="submit">Add to Cart</button>
                         </div>
                     </div>
                 </form>
             @else
                 <p class="text-danger">You must be logged in to add items to the cart.</p>
-                <a href="{{ route('login') }}" class="btn btn-primary">Login to Continue</a>
+                <a href="{{ route('login') }}" class="btn btn-warning">Login to Continue</a>
             @endauth
 
-            <a href="{{ route('products.list') }}" class="btn btn-secondary">Back to Products</a>
+            <a href="{{ route('products.list') }}" class="btn btn-dark">Back to Products</a>
         </div>
     </div>
 
@@ -66,8 +66,8 @@
                             <figure class="flex-grow-0" style="height: 200px; overflow: hidden;"> <!-- Fixed height -->
                                 <a href="{{ route('products.show', $recommended->id) }}" title="{{ $recommended->name }}">
                                     <img src="{{ asset('storage/' . $recommended->img) }}" 
-                                         alt="{{ $recommended->name }}" 
-                                         class="w-100 h-100 object-fit-cover"> <!-- Ensures consistent image sizing -->
+                                        alt="{{ $recommended->name }}" 
+                                        class="w-100 h-100 object-fit-cover"> <!-- Ensures consistent image sizing -->
                                 </a>
                             </figure>
                             <div class="d-flex flex-column text-center flex-grow-1 p-3"> <!-- Added padding and flex-grow -->
@@ -75,14 +75,6 @@
                                 <span class="text-muted small mb-2">({{ $recommended->stock }} available)</span>        
                                 <div class="d-flex justify-content-center align-items-center gap-2 mb-3">
                                     <span class="text-dark fw-bold">{{ number_format($recommended->price, 2) }} MAD</span>
-                                    @if($recommended->price < $recommended->original_price)
-                                        @php
-                                            $discount = 100 - (($recommended->price / $recommended->original_price) * 100);
-                                        @endphp
-                                        <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">
-                                            {{ round($discount) }}% OFF
-                                        </span>
-                                    @endif
                                 </div>
                                 <div class="mt-auto p-2"> <!-- Pushes button to bottom -->
                                     <a href="{{ route('products.show', $recommended->id) }}" 

@@ -22,6 +22,12 @@ class PackController extends Controller
         $packs = Pack::with('products', 'category')->get();
         return view('packs.index', compact('packs'));
     }
+    // Show specific pack by id
+    public function show($id)
+    {
+        $pack = Pack::findOrFail($id);
+        return view('packs.pack-details', compact('pack'));
+    }
 
     // Show the form to create a new pack
     public function create()
@@ -36,7 +42,7 @@ class PackController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
@@ -81,7 +87,7 @@ class PackController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5048',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
