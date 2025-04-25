@@ -35,7 +35,7 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <form action="{{ route('order.add', $product->id) }}" method="POST">
+                <form action="{{ route('order.add', ['type' => 'product', 'id' => $product->id]) }}" method="POST">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="number" class="form-control" name="quantity" value="1" min="1" max="{{ $product->stock }}">

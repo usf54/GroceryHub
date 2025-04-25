@@ -83,7 +83,7 @@
                 @endforelse
             </ul>
 
-            <form action="{{ route('order.addPack', $pack->id) }}" method="POST" class="mt-4">
+            <form action="{{ route('order.add', ['type' => 'pack', 'id' => $pack->id]) }}" method="POST" class="mt-4">
                 @csrf
                 <label for="quantity"><strong>Quantity:</strong></label>
                 <input type="number" name="quantity" value="1" min="1" max="{{ $pack->stock }}" class="form-control w-50 mb-3">

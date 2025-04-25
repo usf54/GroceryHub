@@ -24,15 +24,17 @@ Route::get('/packs/{id}', [PackController::class, 'show'])->name('packs.show');
 
 // Ordering routes
 Route::middleware('auth')->group(function () {
-    // Cart routes
-    Route::post('/order/add/{id}', [OrderController::class, 'addToCart'])->name('order.add');
+    // Unified cart route (with type)
+    Route::post('/order/add/{type}/{id}', [OrderController::class, 'addToCart'])->name('order.add');
+
     Route::get('/cart', [OrderController::class, 'viewCart'])->name('cart.view');
     Route::delete('/cart/remove/{id}', [OrderController::class, 'remove'])->name('cart.remove');
-    Route::post('/order/pack/{pack}', [OrderController::class, 'addToCart'])->name('order.addPack');
-    // Checkout routes
+
+    // Checkout
     Route::get('/checkout', [OrderController::class, 'showCheckout'])->name('checkout.form');
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout.submit');
 });
+
 // ================================= CRUD =======================================================
 // Admin Dashboard Route 
 Route::middleware(['auth', 'admin'])->group(function () {

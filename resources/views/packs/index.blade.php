@@ -70,7 +70,7 @@
                                 <li>{{ $product->name }}</li>
                             @endforeach
                         </ul>
-                        <form action="{{ route('order.addPack', $pack->id) }}" method="POST">
+                        <form action="{{ route('order.add', ['type' => 'pack', 'id' => $pack->id]) }}" method="POST" class="mt-4">
                             @csrf
                             <input type="number" name="quantity" value="1" min="1" max="{{ $pack->stock }}" class="form-control mb-2">
                             <button type="submit" class="btn btn-primary w-100 mb-2">Order Now</button>
