@@ -35,7 +35,7 @@
                     <li class="mb-3">
                         <label for="price" class="form-label">Price Range</label>
                         <input type="range" id="price" name="price" class="form-range warning-range" min="0" max="100" value="{{ request('price', 100) }}" step="10">
-                        <span id="price-value" class="d-block text-center">${{ request('price', 100) }}</span>
+                        <span id="price-value" class="d-block text-center">{{ request('price', 100) }} mad</span>
                     </li>
                 </ul>
                 <button type="submit" class="btn btn-warning w-100">Apply Filters</button>
@@ -80,10 +80,9 @@
                                                         <span class="rating">
                                                             <svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> | Stock :{{$product->stock}}
                                                         </span>
-                                                        <span class="price">${{ number_format($product->price, 2) }}</span>
+                                                        <span class="price">{{ number_format($product->price, 2) }}mad</span>
                                                         <div class="d-flex align-items-center justify-content-between">
-                                                            
-                                                            <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></iconify-icon></a>
+                                                            <a href="{{ route('product.show', $product->id) }}" class="nav-link text-warning">Show Details <iconify-icon icon="uil:shopping-cart"></iconify-icon></a>
                                                         </div>
                                                     </div>
                                                 </div>

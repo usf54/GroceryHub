@@ -9,7 +9,7 @@
         <div class="col-md-6">
             <h2>{{ $product->name }}</h2>
             <p><strong>Description:</strong> {{ $product->description }}</p>
-            <p><strong>Price:</strong> ${{ number_format($product->price, 2) }}</p>
+            <p><strong>Price:</strong> {{ number_format($product->price, 2) }}mad</p>
             <p><strong>Stock:</strong> {{ $product->stock }} units</p>
 
             <!-- Inform about discounts and shipping -->
@@ -27,7 +27,7 @@
                 </div>
                 <div class="alert alert-info">
                     <strong>Free Shipping:</strong>
-                    If your order subtotal is over $100, you qualify for free shipping! Otherwise, a $10 shipping fee will apply.
+                    If your order subtotal is over 100mad, you qualify for free shipping! Otherwise, a 10mad shipping fee will apply.
                 </div>
 
                 @if (session('success'))
@@ -74,7 +74,7 @@
                                 <h3 class="fs-6 fw-normal mb-2">{{ Str::limit($recommended->name, 50) }}</h3> <!-- Added character limit -->
                                 <span class="text-muted small mb-2">({{ $recommended->stock }} available)</span>        
                                 <div class="d-flex justify-content-center align-items-center gap-2 mb-3">
-                                    <span class="text-dark fw-bold">{{ number_format($recommended->price, 2) }} MAD</span>
+                                    <span class="text-dark fw-bold">{{ number_format($recommended->price, 2) }} mad</span>
                                 </div>
                                 <div class="mt-auto p-2"> <!-- Pushes button to bottom -->
                                     <a href="{{ route('products.show', $recommended->id) }}" 

@@ -16,6 +16,17 @@ class AdminController extends Controller
     // Admin Dashboard
     public function index()
     {
+        
+        $userRegistrations = User::select(
+            DB::raw('DATE(created_at) as date'),
+            DB::raw('COUNT(*) as count')
+        )
+        ->groupBy('date')
+        ->orderBy('date')
+        ->get();
+
+        $productStocks = Product::select('name', 'stock')->orderBy('stock', 'desc')->get();
+
         $productsCount = Product::count();
         $usersCount = User::count();
         $categoriesCount = Category::count();

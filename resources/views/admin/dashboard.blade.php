@@ -178,5 +178,85 @@
                 </div>
             </div>
         </div>
+
+        
+<!-- Charts Section -->
+<div class="row mt-5">
+            <!-- User Registrations Chart -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">User Registrations Over Time</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="userRegistrationsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Stock Chart -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Product Stock Levels</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="productStockChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js Script -->
+    <script>
+        // User Registrations Chart (Line Chart)
+        const userRegistrationsCtx = document.getElementById('userRegistrationsChart').getContext('2d');
+        const userRegistrationsChart = new Chart(userRegistrationsCtx, {
+            type: 'line',
+            data: {
+                labels: {!! json_encode($userRegistrations->pluck('date')) !!},
+                datasets: [{
+                    label: 'User Registrations',
+                    data: {!! json_encode($userRegistrations->pluck('count')) !!},
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Product Stock Chart (Bar Chart)
+        const productStockCtx = document.getElementById('productStockChart').getContext('2d');
+        const productStockChart = new Chart(productStockCtx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($productStocks->pluck('name')) !!},
+                datasets: [{
+                    label: 'Stock',
+                    data: {!! json_encode($productStocks->pluck('stock')) !!},
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    </div>
+
 </div>
 @endsection

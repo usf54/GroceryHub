@@ -27,7 +27,7 @@
                         <div class="mb-3">
                             <label for="name" class="form-label fw-semibold" style='font-size: 16px;'>Full Name</label>
                             <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus
-                                class="form-control form-control-lg @error('name') is-invalid @enderror" style='font-size: 16px;'>
+                                class="form-control form-control-lg @error('name') is-invalid @enderror" style='font-size: 16px;' placeholder="Enter your full name">
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -37,7 +37,7 @@
                         <div class="mb-3">
                             <label for="address" class="form-label fw-semibold" style='font-size: 16px;'>Address</label>
                             <input id="address" type="text" name="address" value="{{ old('address') }}" required
-                                class="form-control form-control-lg @error('address') is-invalid @enderror" style='font-size: 16px;'>
+                                class="form-control form-control-lg @error('address') is-invalid @enderror" style='font-size: 16px;' placeholder="Enter your address">
                             @error('address')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -47,7 +47,7 @@
                         <div class="mb-3">
                             <label for="phone" class="form-label fw-semibold" style='font-size: 16px;'>Phone Number</label>
                             <input id="phone" type="text" name="phone" value="{{ old('phone') }}" required
-                                class="form-control form-control-lg @error('phone') is-invalid @enderror" style='font-size: 16px;'>
+                                class="form-control form-control-lg @error('phone') is-invalid @enderror" style='font-size: 16px;' placeholder="Enter your phone number">
                             @error('phone')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -57,7 +57,7 @@
                         <div class="mb-3">
                             <label for="email" class="form-label fw-semibold" style='font-size: 16px;'>Email Address</label>
                             <input id="email" type="email" name="email" value="{{ old('email') }}" required
-                                class="form-control form-control-lg @error('email') is-invalid @enderror" style='font-size: 16px;'>
+                                class="form-control form-control-lg @error('email') is-invalid @enderror" style='font-size: 16px;' placeholder="Enter your email address">
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -67,7 +67,7 @@
                         <div class="mb-3">
                             <label for="password" class="form-label fw-semibold" style='font-size: 16px;'>Password</label>
                             <input id="password" type="password" name="password" required
-                                class="form-control form-control-lg @error('password') is-invalid @enderror" style='font-size: 16px;'>
+                                class="form-control form-control-lg @error('password') is-invalid @enderror" style='font-size: 16px;' placeholder="Create a password">
                             @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -77,7 +77,7 @@
                         <div class="mb-4">
                             <label for="password_confirmation" class="form-label fw-semibold" style='font-size: 16px;'>Confirm Password</label>
                             <input id="password_confirmation" type="password" name="password_confirmation" required
-                                class="form-control form-control-lg" style='font-size: 16px;'>
+                                class="form-control form-control-lg" style='font-size: 16px;' placeholder="Confirm your password">
                         </div>
 
                         <!-- Register Button -->
