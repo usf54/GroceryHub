@@ -18,10 +18,10 @@
                     <strong>Special Offer:</strong> 
                     @php
                         $completedOrders = Auth::user()->orders->where('status', 'completed')->count();
-                        if ($completedOrders >= 3) {
-                            echo "You are eligible for a 5% loyalty discount on your purchase!";
+                        if ($completedOrders >= 5) {
+                            echo "You are eligible for a 10% loyalty discount on your purchase!";
                         } else {
-                            echo "You can earn a 5% discount on your next purchase after completing 3 orders!";
+                            echo "You can earn a 10% discount on your next purchase after completing 5 orders!";
                         }
                     @endphp
                 </div>

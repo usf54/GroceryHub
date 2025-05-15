@@ -76,7 +76,8 @@ class OrderController extends Controller
 
         $total = array_sum(array_column($cart, 'subtotal'));
         $user = Auth::user();
-        $completedOrders = Order::where('user_id', $user->id)->where('status', 'completed')->count();
+        // Check for discount eligibility (e.g., 10% off for 5+ completed orders).
+        $completedOrders = Order::where('user_id', $user->id)->where('status', 'shipped')->count();
         $discount = $completedOrders >= 5 ? round($total * 0.10, 2) : 0;
         $shipping = ($total >= 100) ? 0 : 10;
         $finalTotal = $total - $discount + $shipping;
@@ -99,7 +100,7 @@ class OrderController extends Controller
 
         $user = Auth::user();
         $subtotal = array_sum(array_column($cart, 'subtotal'));
-        $completedOrders = Order::where('user_id', $user->id)->where('status', 'completed')->count();
+        $completedOrders = Order::where('user_id', $user->id)->where('status', 'shipped')->count();
         $discount = $completedOrders >= 5 ? round($subtotal * 0.10, 2) : 0;
         $shipping = ($subtotal >= 100) ? 0 : 10;
         $finalTotal = $subtotal - $discount + $shipping;
@@ -116,7 +117,8 @@ class OrderController extends Controller
             'shipping'    => $shipping,
             'final_total' => $finalTotal,
         ]);
-
+        // Key: The $key is the unique identifier for each cart item (e.g., product_1, pack_3).
+        // Item: The $item is an array containing the item's details like ID, name, price, quantity, and type.
         foreach ($cart as $key => $item) {
             if ($item['type'] === 'product') {
                 OrderDetail::create([

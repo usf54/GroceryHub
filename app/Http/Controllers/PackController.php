@@ -48,7 +48,7 @@ class PackController extends Controller
             'stock' => 'required|integer|min:0',
             'category_id' => 'nullable|exists:categories,id',
             'products' => 'nullable|array',
-            'products.*' => 'exists:products,id'
+            'products.*' => 'exists:products,id' //Validates each product ID in the products array exists in the database.
         ]);
 
         $pack = new Pack();
@@ -102,7 +102,7 @@ class PackController extends Controller
         $pack->stock = $request->stock;
         $pack->category_id = $request->category_id;
 
-        // ✅ Update image only if a new one is uploaded
+        // Update image only if a new one is uploaded
         if ($request->hasFile('img')) {
             $imagePath = $request->file('img')->store('packs', 'public');
             $pack->img = $imagePath;
