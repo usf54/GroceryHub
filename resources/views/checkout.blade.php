@@ -48,25 +48,25 @@
                                 @foreach(session('cart') as $id => $item)
                                     <li class="list-group-item d-flex justify-content-between">
                                         <span>{{ $item['name'] }} × {{ $item['quantity'] }}</span>
-                                        <span>${{ number_format($item['subtotal'], 2) }}</span>
+                                        <span>{{ number_format($item['subtotal'], 2) }}mad</span>
                                     </li>
                                 @endforeach
 
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>Subtotal</span>
-                                    <span>${{ number_format($total, 2) }}</span>
+                                    <span>{{ number_format($total, 2) }}mad</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between text-success">
                                     <span>Discount</span>
-                                    <span>– ${{ number_format($discount, 2) }}</span>
+                                    <span>– {{ number_format($discount, 2) }}mad</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between text-muted">
                                     <span>Shipping</span>
-                                    <span>${{ number_format($shipping, 2) }}</span>
+                                    <span>{{ number_format($shipping, 2) }}mad</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between fw-bold">
                                     <span>Total</span>
-                                    <span>${{ number_format($finalTotal, 2) }}</span>
+                                    <span>{{ number_format($finalTotal, 2) }}mad</span>
                                 </li>
                             </ul>
                         </div>

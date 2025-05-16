@@ -36,9 +36,9 @@
                     @php $total += $item['subtotal']; @endphp
                     <tr>
                         <td>{{ $item['name'] }}</td>
-                        <td>${{ number_format($item['price'], 2) }}</td>
+                        <td>{{ number_format($item['price'], 2) }}mad</td>
                         <td>{{ $item['quantity'] }}</td>
-                        <td>${{ number_format($item['subtotal'], 2) }}</td>
+                        <td>{{ number_format($item['subtotal'], 2) }}mad</td>
                         <td>
                             <form action="{{ route('cart.remove', $id) }}" method="POST">
                                 @csrf
@@ -51,7 +51,7 @@
             </tbody>
         </table>
 
-        <h4>Total: ${{ number_format($total, 2) }}</h4>
+        <h4>Total: {{ number_format($total, 2) }}mad</h4>
 
         <form action=" {{ route('checkout.form' )}} " method="GET" class='py-4'>
             @csrf

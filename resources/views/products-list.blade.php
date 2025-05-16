@@ -105,7 +105,7 @@
 <script>
     // Update price display dynamically
     document.getElementById('price').addEventListener('input', function () {
-    document.getElementById('price-value').innerText = '$' + this.value;
+    document.getElementById('price-value').innerText = 'mad' + this.value;
     });
 </script>
 @endsection

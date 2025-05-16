@@ -35,7 +35,7 @@
                                 {{ ucfirst($order->status) }}
                             </span>
                         </td>
-                        <td>${{ number_format($order->final_total, 2) }}</td>
+                        <td>{{ number_format($order->final_total, 2) }}mad</td>
                         <td>
                             @if($order->order_date instanceof \DateTime)
                                 {{ $order->order_date->format('Y-m-d') }}
@@ -78,8 +78,8 @@
                                                             <tr>
                                                                 <td>{{ $detail->product->name }}</td>
                                                                 <td>{{ $detail->quantity }}</td>
-                                                                <td>${{ number_format($detail->product->price, 2) }}</td>
-                                                                <td>${{ number_format($detail->subtotal, 2) }}</td>
+                                                                <td>{{ number_format($detail->product->price, 2) }}mad</td>
+                                                                <td>{{ number_format($detail->subtotal, 2) }}mad</td>
                                                             </tr>
                                                         @endif
                                                     @endforeach
@@ -120,8 +120,8 @@
                                                                     </div>
                                                                 </td>
                                                                 <td>{{ $packDetail->quantity }}</td>
-                                                                <td>${{ number_format($packDetail->pack->price, 2) }}</td>
-                                                                <td>${{ number_format($packDetail->subtotal, 2) }}</td>
+                                                                <td>{{ number_format($packDetail->pack->price, 2) }}mad</td>
+                                                                <td>{{ number_format($packDetail->subtotal, 2) }}mad</td>
                                                             </tr>
                                                         @endif
                                                     @endforeach
@@ -157,19 +157,19 @@
                                         <table class="table table-sm">
                                             <tr>
                                                 <td>Subtotal:</td>
-                                                <td class="text-end">${{ number_format($order->total, 2) }}</td>
+                                                <td class="text-end">{{ number_format($order->total, 2) }}mad</td>
                                             </tr>
                                             <tr>
                                                 <td>Discount:</td>
-                                                <td class="text-end">-${{ number_format($order->discount, 2) }}</td>
+                                                <td class="text-end">-{{ number_format($order->discount, 2) }}mad</td>
                                             </tr>
                                             <tr>
                                                 <td>Shipping:</td>
-                                                <td class="text-end">${{ number_format($order->shipping, 2) }}</td>
+                                                <td class="text-end">{{ number_format($order->shipping, 2) }}mad</td>
                                             </tr>
                                             <tr class="table-active">
                                                 <td><strong>Total:</strong></td>
-                                                <td class="text-end"><strong>${{ number_format($order->final_total, 2) }}</strong></td>
+                                                <td class="text-end"><strong>{{ number_format($order->final_total, 2) }}mad</strong></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -202,7 +202,7 @@
         
         <!-- Simple Pagination -->
         <div class="d-flex justify-content-center mt-4">
-            {{ $orders->links() }}
+           
         </div>
     </div>
 </div>
