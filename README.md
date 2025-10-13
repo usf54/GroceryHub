@@ -34,7 +34,7 @@ It includes a full admin dashboard to manage products, users, and orders, for a 
 
 1. **Clone the repository**
 ```bash
-    git clone https://github.com/your-username/groceryhub.git
+    git clone https://github.com/usf54/groceryhub.git
     cd groceryhub
 
 2. **Install backend dependencies**
