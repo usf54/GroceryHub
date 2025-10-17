@@ -1,97 +1,119 @@
-@extends('layouts.master')
+<x-guest-layout>
+    <!-- Logo -->
+    <div class="flex justify-center mb-6">
+        <img src="{{ asset('assets/img/logo1.png') }}" alt="Website Logo" class="w-50 h-auto">
+    </div>
 
-@section('title', 'Register')
+    <div class="w-full max-w-4xl rounded-xl shadow-sm border border-gray-200 bg-white p-8">
+        <h2 class="text-2xl font-bold text-center mb-2">Create an Account</h2>
+        <p class="text-center text-gray-600 mb-6">Join us today!</p>
 
-@section('content')
-<div class="container d-flex justify-content-center align-items-center min-vh-100" style=' font-size:16px;'>
-    <div class="row w-100 justify-content-center">
-        <div class="col-md-8 col-lg-6"> <!-- Increased form width -->
-            <div class="card border-1 rounded-4">
-                <div class="card-body p-5"> <!-- Better spacing -->
-                    <!-- Header -->
-                    <h2 class="text-center fw-bold mb-3">Create an Account</h2>
-                    <p class="text-center text-muted">Join us today!</p>
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4 text-center" :status="session('status')" />
 
-                    <!-- Session Status -->
-                    @if(session('status'))
-                        <div class="alert alert-success text-center py-2">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+            @csrf
+            <!-- Grid Layout -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Full Name -->
+                <div>
+                    <x-input-label for="name" :value="__('Full Name')" class="font-semibold" />
+                    <x-text-input 
+                        id="name" 
+                        class="block mt-1 w-full border border-orange-400 rounded-md px-4 py-2" 
+                        type="text" 
+                        name="name" 
+                        :value="old('name')" 
+                        placeholder="John Doe"
+                        required 
+                        autofocus 
+                        autocomplete="name" />
+                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                </div>
 
-                    <!-- Registration Form -->
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                <!-- Address -->
+                <div>
+                    <x-input-label for="address" :value="__('Address')" class="font-semibold" />
+                    <x-text-input 
+                        id="address" 
+                        class="block mt-1 w-full border border-orange-400 rounded-md px-4 py-2" 
+                        type="text" 
+                        name="address" 
+                        :value="old('address')" 
+                        placeholder="123 Main Street"
+                        required 
+                        autocomplete="address" />
+                    <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                </div>
 
-                        <!-- Name -->
-                        <div class="mb-3">
-                            <label for="name" class="form-label fw-semibold" style='font-size: 16px;'>Full Name</label>
-                            <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus
-                                class="form-control form-control-lg @error('name') is-invalid @enderror" style='font-size: 16px;' placeholder="Enter your full name">
-                            @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                <!-- Phone -->
+                <div>
+                    <x-input-label for="phone" :value="__('Phone Number')" class="font-semibold" />
+                    <x-text-input 
+                        id="phone" 
+                        class="block mt-1 w-full border border-orange-400 rounded-md px-4 py-2" 
+                        type="text" 
+                        name="phone" 
+                        :value="old('phone')" 
+                        placeholder="+212 600 000 000"
+                        required 
+                        autocomplete="tel" />
+                    <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                </div>
 
-                        <!-- Address -->
-                        <div class="mb-3">
-                            <label for="address" class="form-label fw-semibold" style='font-size: 16px;'>Address</label>
-                            <input id="address" type="text" name="address" value="{{ old('address') }}" required
-                                class="form-control form-control-lg @error('address') is-invalid @enderror" style='font-size: 16px;' placeholder="Enter your address">
-                            @error('address')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                <!-- Email -->
+                <div>
+                    <x-input-label for="email" :value="__('Email Address')" class="font-semibold" />
+                    <x-text-input 
+                        id="email" 
+                        class="block mt-1 w-full border border-orange-400 rounded-md px-4 py-2" 
+                        type="email" 
+                        name="email" 
+                        :value="old('email')" 
+                        placeholder="example@gmail.com"
+                        required 
+                        autocomplete="username" />
+                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                </div>
 
-                        <!-- Phone -->
-                        <div class="mb-3">
-                            <label for="phone" class="form-label fw-semibold" style='font-size: 16px;'>Phone Number</label>
-                            <input id="phone" type="text" name="phone" value="{{ old('phone') }}" required
-                                class="form-control form-control-lg @error('phone') is-invalid @enderror" style='font-size: 16px;' placeholder="Enter your phone number">
-                            @error('phone')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                <!-- Password -->
+                <div>
+                    <x-input-label for="password" :value="__('Password')" class="font-semibold" />
+                    <x-text-input 
+                        id="password" 
+                        class="block mt-1 w-full border border-orange-400 rounded-md px-4 py-2" 
+                        type="password" 
+                        name="password" 
+                        placeholder="At least 8 characters"
+                        required 
+                        autocomplete="new-password" />
+                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                </div>
 
-                        <!-- Email Address -->
-                        <div class="mb-3">
-                            <label for="email" class="form-label fw-semibold" style='font-size: 16px;'>Email Address</label>
-                            <input id="email" type="email" name="email" value="{{ old('email') }}" required
-                                class="form-control form-control-lg @error('email') is-invalid @enderror" style='font-size: 16px;' placeholder="Enter your email address">
-                            @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Password -->
-                        <div class="mb-3">
-                            <label for="password" class="form-label fw-semibold" style='font-size: 16px;'>Password</label>
-                            <input id="password" type="password" name="password" required
-                                class="form-control form-control-lg @error('password') is-invalid @enderror" style='font-size: 16px;' placeholder="Create a password">
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Confirm Password -->
-                        <div class="mb-4">
-                            <label for="password_confirmation" class="form-label fw-semibold" style='font-size: 16px;'>Confirm Password</label>
-                            <input id="password_confirmation" type="password" name="password_confirmation" required
-                                class="form-control form-control-lg" style='font-size: 16px;' placeholder="Confirm your password">
-                        </div>
-
-                        <!-- Register Button -->
-                        <button type="submit" class="btn btn-primary w-100 py-3 fw-semibold" style="border:none; background-color: #ff9800;">Register</button>
-
-                        <!-- Already Registered Link -->
-                        <div class="text-center mt-4">
-                            <span class="text-muted">Already have an account?</span>
-                            <a href="{{ route('login') }}" class="text-decoration-none fw-semibold">Log in here</a>
-                        </div>
-                    </form>
+                <!-- Confirm Password -->
+                <div>
+                    <x-input-label for="password_confirmation" :value="__('Confirm Password')" class="font-semibold" />
+                    <x-text-input 
+                        id="password_confirmation" 
+                        class="block mt-1 w-full border border-orange-400 rounded-md px-4 py-2" 
+                        type="password" 
+                        name="password_confirmation" 
+                        placeholder="Repeat your password"
+                        required 
+                        autocomplete="new-password" />
+                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
             </div>
-        </div>
+
+            <!-- Submit -->
+            <div class="flex items-center justify-between mt-8">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                    {{ __('Already registered?') }}
+                </a>
+                <x-primary-button class="ms-4" style="background-color: #FF9800;">
+                    {{ __('Register') }}
+                </x-primary-button>
+            </div>
+        </form>
     </div>
-</div>
-@endsection
+</x-guest-layout>
