@@ -15,7 +15,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'password', 
         'address', 
         'phone', 
-        'role'];
+        'role'
+    ];
 
     public function orders() 
     {

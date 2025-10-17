@@ -1,19 +1,19 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\PackController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PackController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\AdminController;
 
 // Home Page
 Route::get('/', [ProductController::class, 'home'])->name('home'); 
 // Products List
 Route::get('/products/list', [ProductController::class, 'showAllProducts'])->name('products.list');  
-// Product Details (Fixed)
+// Product Details
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show');
 // Search
 Route::get('/live-search', [ProductController::class, 'liveSearch']);
@@ -35,8 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout.submit');
 });
 
-// ================================= CRUD =======================================================
-// Admin Dashboard Route 
+// ================================= ADMIN ROUTES =======================================================
 Route::middleware(['auth', 'admin', 'verified'])->group(function () {
     // Products CRUD Routes
     Route::prefix('admin/products')->group(function () {
@@ -47,6 +46,7 @@ Route::middleware(['auth', 'admin', 'verified'])->group(function () {
         Route::put('/{product}', [ProductController::class, 'update'])->name('admin.products.update');
         Route::delete('/{product}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
     });
+
     // Users CRUD Routes
     Route::prefix('admin/users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('admin.users.index');

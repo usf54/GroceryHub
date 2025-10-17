@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Pack;
 use App\Models\Order;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
