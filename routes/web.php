@@ -26,7 +26,7 @@ Route::get('/packs/{id}', [PackController::class, 'show'])->name('packs.show');
 Route::middleware(['auth', 'verified'])->group(function () {
     // Unified cart route (with type)
     Route::post('/order/add/{type}/{id}', [OrderController::class, 'addToCart'])->name('order.add');
-
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::get('/cart', [OrderController::class, 'viewCart'])->name('cart.view');
     Route::delete('/cart/remove/{id}', [OrderController::class, 'remove'])->name('cart.remove');
 

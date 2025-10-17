@@ -10,6 +10,9 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderPackDetail;
 use App\Http\Controllers\Controller;
+use App\Mail\OrderPlacedUser;
+use App\Mail\OrderPlacedAdmin;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -47,6 +50,7 @@ class OrderController extends Controller
         return redirect()->back()->with('success', ucfirst($type) . ' added to cart successfully!');
     }
 
+    // View cart
     public function viewCart()
     {
         $cart = session()->get('cart', []);
@@ -54,6 +58,7 @@ class OrderController extends Controller
         return view('cart', compact('cart', 'total'));
     }
 
+    // Remove item from cart
     public function remove($key)
     {
         if (session()->has('cart')) {
@@ -68,6 +73,7 @@ class OrderController extends Controller
         return redirect()->back()->with('error', 'Item not found in the cart.');
     }
 
+    // Show checkout page
     public function showCheckout()
     {
         $cart = session()->get('cart', []);
@@ -77,7 +83,6 @@ class OrderController extends Controller
 
         $total = array_sum(array_column($cart, 'subtotal'));
         $user = Auth::user();
-        // Check for discount eligibility (e.g., 10% off for 5+ completed orders).
         $completedOrders = Order::where('user_id', $user->id)->where('status', 'shipped')->count();
         $discount = $completedOrders >= 5 ? round($total * 0.10, 2) : 0;
         $shipping = ($total >= 100) ? 0 : 10;
@@ -86,6 +91,7 @@ class OrderController extends Controller
         return view('checkout', compact('cart', 'total', 'discount', 'shipping', 'finalTotal'));
     }
 
+    // Process checkout and create order
     public function checkout(Request $request)
     {
         $cart = session()->get('cart', []);
@@ -106,6 +112,7 @@ class OrderController extends Controller
         $shipping = ($subtotal >= 100) ? 0 : 10;
         $finalTotal = $subtotal - $discount + $shipping;
 
+        // Create order
         $order = Order::create([
             'user_id'     => $user->id,
             'status'      => 'pending',
@@ -118,8 +125,8 @@ class OrderController extends Controller
             'shipping'    => $shipping,
             'final_total' => $finalTotal,
         ]);
-        // Key: The $key is the unique identifier for each cart item (e.g., product_1, pack_3).
-        // Item: The $item is an array containing the item's details like ID, name, price, quantity, and type.
+
+        // Create order details
         foreach ($cart as $key => $item) {
             if ($item['type'] === 'product') {
                 OrderDetail::create([
@@ -140,6 +147,13 @@ class OrderController extends Controller
             }
         }
 
+        $order = Order::with(['orderDetails.product', 'orderPackDetails.pack', 'user'])->find($order->id);
+
+        // Send queued emails
+        Mail::to($order->user->email)->send(new OrderPlacedUser($order));
+        Mail::to('hostigo05@gmail.com')->queue(new OrderPlacedAdmin($order));
+
+        // Clear cart
         session()->forget('cart');
 
         return redirect()->route('products.list')
@@ -153,11 +167,13 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders'));
     }
 
+    // Admin: Edit order
     public function edit(Order $order)
     {
         return view('admin.orders.edit', compact('order'));
     }
 
+    // Admin: Update order status
     public function update(Request $request, Order $order)
     {
         $request->validate([
@@ -170,6 +186,7 @@ class OrderController extends Controller
             ->with('success', 'Order updated successfully!');
     }
 
+    // Admin: Delete order
     public function destroy(Order $order)
     {
         $order->delete();
