@@ -11,7 +11,13 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->enum('status', ['pending', 'completed', 'shipped'])->default('pending');
             $table->dateTime('order_date')->useCurrent();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('phone')->nullable();
             $table->decimal('total', 10, 2);
+            $table->decimal('discount', 10, 2)->default(0);
+            $table->decimal('shipping', 10, 2)->default(0);
+            $table->decimal('final_total', 10, 2)->default(0);
             $table->timestamps();
         });
     }

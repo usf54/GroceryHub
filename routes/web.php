@@ -23,7 +23,7 @@ Route::get('/packs', [PackController::class, 'showPacks'])->name('packs.index');
 Route::get('/packs/{id}', [PackController::class, 'show'])->name('packs.show');
 
 // Ordering routes
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     // Unified cart route (with type)
     Route::post('/order/add/{type}/{id}', [OrderController::class, 'addToCart'])->name('order.add');
 
@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 
 // ================================= CRUD =======================================================
 // Admin Dashboard Route 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'admin', 'verified'])->group(function () {
     // Products CRUD Routes
     Route::prefix('admin/products')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('admin.products.index');
@@ -89,7 +89,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 // Profile Routes
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile-page', [ProfileController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
