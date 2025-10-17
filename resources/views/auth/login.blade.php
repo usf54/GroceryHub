@@ -41,12 +41,24 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <!-- Login Button -->
-                            <button type="submit" class="btn btn-primary w-100 py-3 fw-semibold" style="border:none; background-color: #ff9800;font-size: 16px;">Log In</button>
-                            <!-- Register Link -->
-                            <div class="text-center mt-4">
-                                <span class="text-muted" style='font-size: 16px;'>Don't have an account?</span>
-                                <a href="{{ route('register') }}" class="text-decoration-none fw-semibold">Register here</a>
+                            <div>
+                                <x-primary-button class="flex justify-end mt-4 mb-4" style="border:none; background-color: #ff9800;font-size: 16px;width:100%">
+                                    {{ __('Log in') }}
+                                </x-primary-button>
+                                <div class="flex justify-between mt-4">
+                                    <div>
+                                        @if (Route::has('password.request'))
+                                        <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                                            {{ __('Forgot your password?') }}
+                                        </a>
+                                        @endif
+                                    </div>
+                                    <div>
+                                        <a class="underline text-sm text-gray-600 hover:text-gray-900 mt-4" href="{{ route('register') }}">
+                                            {{ __('Do not have an account?') }}
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
