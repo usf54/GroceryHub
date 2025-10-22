@@ -13,6 +13,8 @@ use App\Http\Controllers\Controller;
 use App\Mail\OrderPlacedUser;
 use App\Mail\OrderPlacedAdmin;
 use Illuminate\Support\Facades\Mail;
+use Stripe\Stripe;
+use Stripe\Checkout\Session as StripeSession;
 
 class OrderController extends Controller
 {
@@ -92,7 +94,7 @@ class OrderController extends Controller
     }
 
     // Process checkout and create order
-    public function checkout(Request $request)
+    public function createPayment(Request $request)
     {
         $cart = session()->get('cart', []);
         if (empty($cart)) {
@@ -105,6 +107,72 @@ class OrderController extends Controller
             'phone'   => 'required|string|max:20',
         ]);
 
+        // Store checkout info in session
+        session()->put('checkout', [
+            'address' => $request->address,
+            'city' => $request->city,
+            'phone' => $request->phone,
+        ]);
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $lineItems = [];
+        foreach ($cart as $item) {
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'mad', // or 'usd'
+                    'product_data' => [
+                        'name' => $item['name'],
+                    ],
+                    'unit_amount' => intval($item['price'] * 100), // convert to cents
+                ],
+                'quantity' => $item['quantity'],
+            ];
+        }
+
+        $subtotal = array_sum(array_column($cart, 'subtotal'));
+        $completedOrders = Order::where('user_id', Auth::id())->where('status', 'shipped')->count();
+        $discount = $completedOrders >= 5 ? round($subtotal * 0.10, 2) : 0;
+        $shipping = ($subtotal >= 100) ? 0 : 10;
+        $finalTotal = $subtotal - $discount + $shipping;
+
+        // Add shipping line
+        if ($shipping > 0) {
+            $lineItems[] = [
+                'price_data' => [
+                    'currency' => 'mad',
+                    'product_data' => ['name' => 'Shipping'],
+                    'unit_amount' => intval($shipping * 100),
+                ],
+                'quantity' => 1,
+            ];
+        }
+
+        $session = StripeSession::create([
+            'payment_method_types' => ['card'],
+            'line_items' => $lineItems,
+            'mode' => 'payment',
+            'success_url' => route('payment.success'),
+            'cancel_url' => route('payment.cancel'),
+            'metadata' => [
+                'user_id' => Auth::id(),
+                'address' => $request->address,
+                'city' => $request->city,
+                'phone' => $request->phone,
+            ],
+        ]);
+
+        return redirect($session->url);
+    }
+
+    public function paymentSuccess(Request $request)
+    {
+        $cart = session()->get('cart', []);
+        if (empty($cart)) {
+            return redirect()->route('products.list')->with('error', 'No cart found.');
+        }
+
+        // Create the order (same logic as your checkout)
         $user = Auth::user();
         $subtotal = array_sum(array_column($cart, 'subtotal'));
         $completedOrders = Order::where('user_id', $user->id)->where('status', 'shipped')->count();
@@ -112,22 +180,20 @@ class OrderController extends Controller
         $shipping = ($subtotal >= 100) ? 0 : 10;
         $finalTotal = $subtotal - $discount + $shipping;
 
-        // Create order
         $order = Order::create([
             'user_id'     => $user->id,
             'status'      => 'pending',
             'order_date'  => now(),
-            'address'     => $request->address,
-            'city'        => $request->city,
-            'phone'       => $request->phone,
+            'address'     => session('checkout.address'),
+            'city'        => session('checkout.city'),
+            'phone'       => session('checkout.phone'),
             'total'       => $subtotal,
             'discount'    => $discount,
             'shipping'    => $shipping,
             'final_total' => $finalTotal,
         ]);
 
-        // Create order details
-        foreach ($cart as $key => $item) {
+        foreach ($cart as $item) {
             if ($item['type'] === 'product') {
                 OrderDetail::create([
                     'order_id'   => $order->id,
@@ -147,17 +213,15 @@ class OrderController extends Controller
             }
         }
 
-        $order = Order::with(['orderDetails.product', 'orderPackDetails.pack', 'user'])->find($order->id);
-
-        // Send queued emails
-        Mail::to($order->user->email)->send(new OrderPlacedUser($order));
-        Mail::to('hostigo05@gmail.com')->queue(new OrderPlacedAdmin($order));
-
-        // Clear cart
         session()->forget('cart');
+        session()->forget('checkout');
 
-        return redirect()->route('products.list')
-            ->with('success', 'Order placed successfully! You saved $' . number_format($discount, 2) . '. Order ID: #' . $order->id);
+        return redirect()->route('products.list')->with('success', 'Payment successful! Order placed.');
+    }
+
+    public function paymentCancel()
+    {
+    return redirect()->route('checkout.form')->with('error', 'Payment was cancelled.');
     }
 
     // Admin: View all orders

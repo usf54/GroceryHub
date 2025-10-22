@@ -30,9 +30,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/cart', [OrderController::class, 'viewCart'])->name('cart.view');
     Route::delete('/cart/remove/{id}', [OrderController::class, 'remove'])->name('cart.remove');
 
-    // Checkout
     Route::get('/checkout', [OrderController::class, 'showCheckout'])->name('checkout.form');
-    Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout.submit');
+    Route::post('/checkout/submit', [OrderController::class, 'checkout'])->name('checkout.submit');
+
+    // Stripe payment routes
+    Route::post('/payment/create', [OrderController::class, 'createPayment'])->name('payment.create');
+    Route::get('/payment/success', [OrderController::class, 'paymentSuccess'])->name('payment.success');
+    Route::get('/payment/cancel', [OrderController::class, 'paymentCancel'])->name('payment.cancel');
 });
 
 // ================================= ADMIN ROUTES =======================================================

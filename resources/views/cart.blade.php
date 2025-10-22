@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+@section('title','Cart | GroceryHub')
 @section('content')
 <div class="container mt-5">
     @if (session('success'))

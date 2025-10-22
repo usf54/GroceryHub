@@ -1,11 +1,11 @@
 @extends('layouts.master')
-
+@section('title','Checkout | GroceryHub')
 @section('content')
 <div class="container py-4">
     <h2 class="mb-4">Checkout</h2>
 
     @if(session('cart') && count(session('cart')) > 0)
-        <form action="{{ route('checkout.submit') }}" method="POST">
+        <form action="{{ route('payment.create') }}" method="POST">
             @csrf
             <div class="row">
                 <!-- Shipping Info -->
