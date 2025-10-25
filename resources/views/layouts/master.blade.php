@@ -62,6 +62,8 @@
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                 @if ( Auth::user()->role === 'admin')
                   <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                @elseif ( Auth::user()->role === 'client' )
+                  <li><a class="dropdown-item" href="{{ route('dashboard') }}">Profile</a></li>
                 @endif
                 <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Edit Profile</a></li>
                 <li>
