@@ -95,6 +95,7 @@ Route::middleware(['auth', 'admin', 'verified'])->group(function () {
 // Profile Routes
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile-page', [ProfileController::class, 'index'])->name('dashboard');
+    Route::get('/profile/all-orders', [ProfileController::class, 'allOrders'])->name('orders.history');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -8,9 +8,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Order;
 
 class ProfileController extends Controller
 {
+    public function index() {
+        $user = Auth::user()->load([
+            'orders' => function($q) {
+            $q->latest()->take(5);
+        },
+        'orders.orderDetails.product',
+        'orders.orderPackDetails.pack'
+        ]);
+
+        return view('profile.index', compact('user'));
+    }
+
+    public function allOrders() {
+        $orders = Order::where('user_id', Auth::id())->get();
+
+        return view('profile.all-orders', compact('orders'));
+    }
     /**
      * Display the user's profile form.
      */
