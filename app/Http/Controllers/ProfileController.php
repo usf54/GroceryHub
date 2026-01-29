@@ -10,19 +10,21 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Order;
 
+// User Profile
 class ProfileController extends Controller
 {
     public function index() {
-        $user = Auth::user()->load([
-            'orders' => function($q) {
-            $q->latest()->take(5);
-        },
-        'orders.orderDetails.product',
-        'orders.orderPackDetails.pack'
-        ]);
+        $user = Auth::user();
 
-        return view('profile.index', compact('user'));
+        $orders = Order::with(['orderDetails.product', 'orderPackDetails.pack'])
+                    ->where('user_id', $user->id)
+                    ->latest()
+                    ->take(5)
+                    ->get();
+
+        return view('profile.index', compact('user', 'orders'));
     }
+
 
     public function allOrders() {
         $orders = Order::where('user_id', Auth::id())->get();

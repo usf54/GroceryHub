@@ -213,6 +213,12 @@ class OrderController extends Controller
             }
         }
 
+        $order = Order::with(['orderDetails.product', 'orderPackDetails.pack', 'user'])->find($order->id);
+
+        // Send queued emails
+        Mail::to($order->user->email)->send(new OrderPlacedUser($order));
+        Mail::to('hostigo05@gmail.com')->queue(new OrderPlacedAdmin($order));
+
         session()->forget('cart');
         session()->forget('checkout');
 

@@ -163,7 +163,9 @@
                   resultsBox.innerHTML = '';
                   return;
               }
-
+              
+              //encodeURIComponent = C’est une fonction JavaScript intégrée qui encode une chaîne de texte (string)
+              //  pour qu’elle puisse être sûrement utilisée dans une URL.
               fetch(`/live-search?query=${encodeURIComponent(query)}`)
                   .then(res => res.json())
                   .then(data => {
