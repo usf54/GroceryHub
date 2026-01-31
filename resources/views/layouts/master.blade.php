@@ -36,95 +36,99 @@
       </defs>
     </svg>
 
+    <div class="preloader-wrapper">
+      <div class="preloader">
+      </div>
+    </div>
+    
     <header class="bg-white shadow-sm">
-      <div class="container-fluid">
-        <div class="row align-items-center py-3">
-
+      <div class="container-fluid py-2">
+        <div class="row align-items-center gy-2">
           <!-- Logo -->
-          <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-start align-items-center">
+          <div class="col-6 col-lg-2 d-flex align-items-center">
             <a href="/">
-              <img src="{{ asset('assets/img/logo1.png') }}" alt="logo" class="img-fluid" style="max-height:50px;">
+              <img src="{{ asset('assets/img/logo1.png') }}"
+                  alt="logo"
+                  class="img-fluid"
+                  style="max-height:45px;">
             </a>
           </div>
-
-          <!-- Search Bar (hidden on xs, full width on sm+) -->
-          <div class="col-12 col-sm-6 col-lg-4 my-2 my-lg-0 order-3 order-sm-2">
-            <div class="input-group rounded-pill bg-light overflow-hidden">
-              <input type="text" id="live-search" class="form-control border-0 bg-transparent px-3" placeholder="Search">
+          <!-- Search -->
+          <div class="col-12 col-lg-4 order-3 order-lg-2 position-relative">
+            <!-- Search input (no overflow-hidden) -->
+            <div class="input-group rounded-pill bg-light w-100">
+              <input type="text"
+                    id="live-search"
+                    class="form-control border-0 bg-transparent px-3"
+                    placeholder="Search">
               <button class="btn btn-light border-0 px-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                  <path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/>
                 </svg>
               </button>
             </div>
-            <div id="search-results" class="live-results position-absolute bg-white shadow rounded mt-1 w-100"></div>
+            <!-- Search results -->
+            <div id="search-results"
+                class="position-absolute top-100 start-0 w-100 bg-white shadow rounded mt-1 z-3">
+            </div>
           </div>
-
-          <!-- Navbar Links -->
-          <div class="col-12 col-lg-4 d-flex justify-content-center justify-content-lg-start my-2 my-lg-0 order-2 order-lg-3">
-            <ul class="navbar-nav d-flex flex-row flex-wrap gap-2 gap-lg-4 align-items-center mb-0 text-uppercase fw-bold">
-
-              <li class="nav-item">
-                <a href="/" class="nav-link px-2">Home</a>
-              </li>
-
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle px-2" href="#" id="pagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Pages
-                </a>
-                <ul class="dropdown-menu border-0 shadow p-2 rounded-2" aria-labelledby="pagesDropdown">
-                  <li><a class="dropdown-item" href="{{ route('checkout.form') }}">Checkout</a></li>
-                  <li><a class="dropdown-item" href="{{ route('packs.index') }}">Check our packs</a></li>
-                  <li><a class="dropdown-item" href="{{ route('home') }}">About Us</a></li>
-                  <li><a class="dropdown-item" href="{{ route('home') }}">Contact</a></li>
-                </ul>
-              </li>
-
-            </ul>
+          <!-- Navigation -->
+          <div class="col-12 col-lg-4 order-4 order-lg-3">
+            <nav class="navbar navbar-expand p-0">
+              <ul class="navbar-nav gap-3 text-uppercase fw-bold">
+                <li class="nav-item">
+                  <a href="/" class="nav-link px-2">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('packs.index') }}" class="nav-link px-2">
+                    Packs
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
-
-          <!-- Auth & Cart -->
-          <div class="col-6 col-sm-2 col-lg-2 d-flex justify-content-end align-items-center gap-2 gap-lg-3 order-1 order-sm-3">
-
-            <!-- Guest -->
+          <!-- Auth & Cart (ALWAYS TOP-RIGHT) -->
+          <div class="col-6 col-lg-2 order-2 order-lg-4 d-flex justify-content-end align-items-center gap-3">
             @guest
-              <a href="{{ route('login') }}" class="text-dark p-2">
-                <svg width="24" height="24"><use xlink:href="#user"></use></svg>
+              <a href="{{ route('login') }}" class="text-dark">
+                <svg width="22" height="22">
+                  <use xlink:href="#user"></use>
+                </svg>
               </a>
             @endguest
-
-            <!-- Authenticated -->
             @auth
-              <div class="d-flex align-items-center gap-2 gap-lg-3 flex-wrap">
-
-                <!-- Dashboard / Profile -->
-                @if(Auth::user()->role === 'admin')
-                  <a href="{{ route('admin.dashboard') }}" class="btn btn-sm btn-outline-primary">Dashboard</a>
-                @elseif(Auth::user()->role === 'client')
-                  <a href="{{ route('dashboard') }}" class="btn btn-sm btn-outline-primary">Profile</a>
-                @endif
-
-                <a href="{{ route('profile.edit') }}" class="btn btn-sm btn-outline-secondary">Edit Profile</a>
-
-                <!-- Cart -->
-                <a href="{{ route('cart.view') }}" class="position-relative text-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
-                  <svg width="24" height="24"><use xlink:href="#shopping-bag"></use></svg>
-                  <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    {{ session('cart') ? count(session('cart')) : 0 }}
-                  </span>
-                </a>
-
-                <!-- Logout -->
-                <form method="POST" action="{{ route('logout') }}" class="m-0">
-                  @csrf
-                  <button type="submit" class="btn btn-sm btn-outline-danger">Log Out</button>
-                </form>
-
+              <a href="{{ route('cart.view') }}"
+                class="position-relative text-dark"
+                >
+                <svg width="22" height="22">
+                  <use xlink:href="#shopping-bag"></use>
+                </svg>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {{ session('cart') ? count(session('cart')) : 0 }}
+                </span>
+              </a>
+              <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="me-2">{{ Auth::user()->name }}</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                    @if ( Auth::user()->role === 'admin')
+                      <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                    @elseif ( Auth::user()->role === 'client' )
+                      <li><a class="dropdown-item" href="{{ route('dashboard') }}">Profile</a></li>
+                    @endif
+                    <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Edit Profile</a></li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button class="dropdown-item" type="submit">Log Out</button>
+                        </form>
+                    </li>
+                </ul>
               </div>
             @endauth
-
           </div>
-
         </div>
       </div>
     </header>
@@ -269,10 +273,9 @@
           });
           
     </script>
-    
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     @stack('js')
 </body>
 </html>

@@ -64,7 +64,7 @@
         <h2 class="display-1 ls-1"><span class="fw-bold text-primary">Organic</span> Foods at your <span class="fw-bold">Doorsteps</span></h2>
         <p class="fs-4">Dignissim massa diam elementum.</p>
         <div class="d-flex gap-3 mb-5">
-          <a href=" {{ route('products.list') }} " class="btn btn-primary text-uppercase fs-6 rounded-pill px-4 py-3 mt-3">Start Shopping</a>
+          <a href=" {{ route('products.list') }} " class="cta-btn">START SHOPPING</a>
         </div>
       </div>
     </div>
@@ -81,7 +81,7 @@
         <div class="section-header d-flex flex-wrap justify-content-between mb-5">
           <h2 class="section-title">Category</h2>
           <div class="d-flex align-items-center">
-            <a href=" {{ route('products.list') }} " class="btn btn-primary me-2">View All</a>
+            <a href=" {{ route('products.list') }} " class="cta-btn">View All</a>
             <div class="swiper-buttons">
               <button class="swiper-prev category-carousel-prev btn btn-yellow">❮</button>
               <button class="swiper-next category-carousel-next btn btn-yellow">❯</button>
@@ -117,7 +117,7 @@
         <div class="section-header d-flex flex-wrap justify-content-between my-4">
           <h2 class="section-title">Trending products</h2>
           <div class="d-flex align-items-center">
-            <a href=" {{ route('products.list') }} " class="btn btn-primary rounded-1">View All</a>
+            <a href=" {{ route('products.list') }} " class="cta-btn">View All</a>
           </div>
         </div>
       </div>
@@ -222,10 +222,10 @@
         <div class="section-header d-flex flex-wrap justify-content-between my-4">
           <h2 class="section-title">Featured</h2>
           <div class="d-flex align-items-center">
-            <a href="{{ route('products.list') }}" class="btn btn-primary me-2">View All</a>
+            <a href="{{ route('products.list') }}" class="cta-btn">View All</a>
             <div class="swiper-buttons">
-              <button class="swiper-prev products-carousel-prev btn btn-primary">❮</button>
-              <button class="swiper-next products-carousel-next btn btn-primary">❯</button>
+              <button class="swiper-prev products-carousel-prev btn btn-yellow">❮</button>
+              <button class="swiper-next products-carousel-next btn btn-yellow">❯</button>
             </div>  
           </div>
         </div>
@@ -253,7 +253,6 @@
                         <svg width="16" height="16" class="text-warning"><use xlink:href="#star-full"></use></svg>
                         <svg width="16" height="16" class="text-warning"><use xlink:href="#star-half"></use></svg>
                       </span>
-
                       <div>
                         <span class="badge {{ $product->stock > 0 ? 'bg-success' : 'bg-danger' }}">
                           {{ $product->stock > 0 ? 'Available' : 'Not available' }} ({{$product->stock}})
@@ -262,7 +261,6 @@
                     </div>
                   </div>
                   <div class="d-flex justify-content-center align-items-center gap-2">
-                    
                     <span class="text-dark fw-semibold">{{ number_format($rproduct->price, 2) }} mad</span>
                   </div>
                   <div class="button-area p-3 pt-0">
@@ -294,10 +292,10 @@
         <div class="section-header d-flex justify-content-between my-4">
           <h2 class="section-title">Just arrived</h2>
           <div class="d-flex align-items-center">
-            <a href=" {{ route('products.list') }} " class="btn btn-primary me-2">View All</a>
+            <a href=" {{ route('products.list') }} " class="cta-btn">View All</a>
             <div class="swiper-buttons">
-              <button class="swiper-prev products-carousel-prev btn btn-primary">❮</button>
-              <button class="swiper-next products-carousel-next btn btn-primary">❯</button>
+              <button class="swiper-prev products-carousel-prev btn btn-yellow">❮</button>
+              <button class="swiper-next products-carousel-next btn btn-yellow">❯</button>
             </div>  
           </div>
         </div>

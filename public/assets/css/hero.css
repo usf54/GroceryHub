@@ -1,5 +1,11 @@
-body {
-    overflow-x: hidden;
+.cta-btn {
+    background-color: #6BB252;
+    padding: 5px 20px;
+    margin: 5px;
+    border-radius: 6px;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
 }
 .hero-section {
     display: flex;
