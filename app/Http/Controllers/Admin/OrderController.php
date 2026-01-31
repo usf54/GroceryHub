@@ -39,6 +39,7 @@ class OrderController extends Controller
         } else {
             $cart[$key] = [
                 'id'       => $id,
+                'img'      => $item->img,
                 'name'     => $item->name,
                 'price'    => $item->price,
                 'quantity' => $request->input('quantity', 1),

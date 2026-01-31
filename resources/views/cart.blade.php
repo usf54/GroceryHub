@@ -1,66 +1,96 @@
 @extends('layouts.master')
 @section('title','Cart | GroceryHub')
 @section('content')
-<div class="container mt-5">
+<div class="container my-5">
+
+    {{-- Alerts --}}
     @if (session('success'))
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <ul class="mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
 
-    <h2>Shopping Cart</h2>
+    {{-- Page Title --}}
+    <h2 class="mb-4 fw-bold text-center">Shopping Cart</h2>
 
     @if(session('cart') && count(session('cart')) > 0)
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                    <th>Remove product</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php $total = 0; @endphp
-                @foreach(session('cart') as $id => $item)
-                    @php $total += $item['subtotal']; @endphp
-                    <tr>
-                        <td>{{ $item['name'] }}</td>
-                        <td>{{ number_format($item['price'], 2) }}mad</td>
-                        <td>{{ $item['quantity'] }}</td>
-                        <td>{{ number_format($item['subtotal'], 2) }}mad</td>
-                        <td>
-                            <form action="{{ route('cart.remove', $id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Remove</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="row">
+            {{-- Cart Items --}}
+            <div class="col-lg-8 mb-4">
+                <div class="list-group shadow-sm border">
+                    @php $total = 0; @endphp
+                    @foreach(session('cart') as $id => $item)
+                        @php $total += $item['subtotal']; @endphp
+                        <div class="list-group-item d-flex flex-column flex-md-row align-items-center justify-content-between py-3 border-bottom">
+                            {{-- Product Info --}}
+                            <div class="d-flex align-items-center mb-3 mb-md-0">
+                                <img src="{{ asset('storage/' . $item['img']) }}" alt="{{ $item['name'] }}" class="rounded me-3" style="width:80px; height:80px; object-fit:cover;">
+                                <div class="d-flex flex-column">
+                                    <h5 class="mb-1">{{ $item['name'] }}</h5>
+                                    <span class="text-muted">Price: <strong>{{ number_format($item['price'], 2) }} MAD</strong></span>
+                                </div>
+                            </div>
 
-        <h4>Total: {{ number_format($total, 2) }}mad</h4>
+                            {{-- Quantity & Subtotal --}}
+                            <div class="d-flex flex-column align-items-center">
+                                <span class="mb-2">Qty: <strong>{{ $item['quantity'] }}</strong></span>
+                                <span class="fs-5 fw-bold mb-2">{{ number_format($item['subtotal'], 2) }} MAD</span>
+                                <form action="{{ route('cart.remove', $id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">Remove</button>
+                                </form>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
 
-        <form action=" {{ route('checkout.form' )}} " method="GET" class='py-4'>
-            @csrf
-            <button type="submit" class="btn btn-success">Proceed to Checkout</button>
-        </form>
+            {{-- Checkout Summary --}}
+            <div class="col-lg-4">
+                <div class="card border shadow-sm sticky-top" style="top:100px;">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold mb-3">Order Summary</h4>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Subtotal
+                                <span class="fw-bold">{{ number_format($total, 2) }} MAD</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Shipping
+                                <span class="text-muted">Calculated at checkout</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Total
+                                <span class="fs-5 fw-bold">{{ number_format($total, 2) }} MAD</span>
+                            </li>
+                        </ul>
+                        <form action="{{ route('checkout.form') }}" method="GET">
+                            @csrf
+                            <button type="submit" class="btn btn-success w-100 btn-lg">Proceed to Checkout</button>
+                        </form>
+                        <a href="{{ route('products.list') }}" class="btn btn-outline-secondary w-100 mt-2">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     @else
-        <div class='my-5'>
-            <p>Your cart is empty.</p>
-            <a href="{{ route('products.list') }}" class="btn btn-primary">Continue Shopping</a>
+        {{-- Empty Cart --}}
+        <div class="text-center py-5">
+            <h4 class="mb-3 fw-bold">Your cart is empty</h4>
+            <p class="mb-4 text-muted">Browse our products and add your favorites to the cart.</p>
+            <a href="{{ route('products.list') }}" class="btn btn-primary btn-lg">Continue Shopping</a>
         </div>
     @endif
 </div>

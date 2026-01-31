@@ -41,9 +41,13 @@ It includes a full admin dashboard to manage products, users, and orders, for a 
     composer install
     cp .env.example .env
     php artisan key:generate
-3. **Set up your database**
-4. **Run migrations**
-5. **Start the server**
+3. **Install frontend dependencies**
+    npm install
+4. **Set up your database**
+5. **Run migrations**
+6. **Start the development server**
+    npm run dev
+    php artisan serve
 
 ##🧠 Usage
 Users can browse groceries, search items, add to cart, and complete purchases securely.
