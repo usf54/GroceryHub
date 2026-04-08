@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/hero.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendor.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @endpush
 
 @section('content')

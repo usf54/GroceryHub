@@ -34,8 +34,8 @@
                     </li>
                     <li class="mb-3">
                         <label for="price" class="form-label">Price Range</label>
-                        <input type="range" id="price" name="price" class="form-range warning-range" min="0" max="100" value="{{ request('price', 100) }}" step="10">
-                        <span id="price-value" class="d-block text-center">{{ request('price', 100) }} mad</span>
+                        <input type="range" id="price" name="price" class="form-range warning-range" min="0" max="1000" value="{{ request('price', 1000) }}" step="10">
+                        <span id="price-value" class="d-block text-center">{{ request('price', 1000) }} mad</span>
                     </li>
                 </ul>
                 <button type="submit" class="btn btn-warning w-100">Apply Filters</button>
