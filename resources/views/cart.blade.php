@@ -85,6 +85,32 @@
                 </div>
             </div>
         </div>
+
+        <h3>You Might Need These</h3>
+
+        <div class="row">
+
+        @foreach($recommendedProducts as $product)
+            <div class="col mb-4">
+                <div class="product-item">
+                    <figure>
+                        <a href="{{ route('product.show', $product->id) }}" title="{{ $product->name }}">
+                            <img src="{{ asset('storage/' . $product->img) }}" class="tab-image img-fluid" alt="{{ $product->name }}">
+                        </a>
+                    </figure>
+                    <h3>{{ $product->name }}</h3>
+                    <span class="qty">1 Unit</span>
+                    <span class="rating">
+                        <svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> | Stock :{{$product->stock}}
+                    </span>
+                    <span class="price">{{ number_format($product->price, 2) }}mad</span>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <a href="{{ route('product.show', $product->id) }}" class="nav-link text-warning">Show Details <iconify-icon icon="uil:shopping-cart"></iconify-icon></a>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+        </div>
     @else
         {{-- Empty Cart --}}
         <div class="text-center py-5">

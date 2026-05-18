@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Mail;
 use Stripe\Stripe;
 use Stripe\Checkout\Session as StripeSession;
 
+use App\Services\AIRecommendationService;
+
 class OrderController extends Controller
 {
     // Add item (product or pack) to cart
@@ -54,11 +56,17 @@ class OrderController extends Controller
     }
 
     // View cart
-    public function viewCart()
+    public function viewCart(AIRecommendationService $ai)
     {
+        $availableProducts = Product::all();
         $cart = session()->get('cart', []);
         $total = array_sum(array_column($cart, 'subtotal'));
-        return view('cart', compact('cart', 'total'));
+
+        $recommendations = $ai->recommend($cart, $availableProducts);
+        $productNames = array_map('trim', explode(',', $recommendations));
+        $recommendedProducts = Product::whereIn('name', $productNames)->get();
+
+        return view('cart', compact('cart', 'total', 'recommendedProducts'));
     }
 
     // Remove item from cart
