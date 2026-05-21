@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Register the 'admin' alias as middleware
         $middleware->alias([
             'admin' => App\Http\Middleware\AdminMiddleware::class,
+            'driver' => App\Http\Middleware\DriverMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\PackController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Driver\DriverDashboardController;
+use App\Http\Controllers\Driver\DriverOrderController;
 
 // Home Page
 Route::get('/', [ProductController::class, 'home'])->name('home'); 
@@ -44,14 +46,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'driver', 'verified'])->group(function () {
     Route::prefix('driver')->group(function () {
         // DASHBOARD
-        Route::get('/dashboard', [DriverDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard', [DriverDashboardController::class, 'index'])->name('driver.dashboard');
         // ORDERS
-        Route::get('/orders', [DriverOrderController::class, 'index'])->name('orders');
-        Route::get('/orders/{id}', [DriverOrderController::class, 'show'])->name('orders.show');
+        Route::get('/orders', [DriverOrderController::class, 'index'])->name('driver.orders');
+        Route::get('/orders/{id}', [DriverOrderController::class, 'show'])->name('driver.orders.show');
         // ACTIONS
-        Route::post('/orders/{id}/start', [DriverOrderController::class, 'start'])->name('orders.start');
-        Route::post('/orders/{id}/delivered', [DriverOrderController::class, 'delivered'])->name('orders.delivered');
-        Route::post('/orders/{id}/failed', [DriverOrderController::class, 'failed'])->name('orders.failed');
+        Route::post('/orders/{id}/start', [DriverOrderController::class, 'start'])->name('driver.orders.start');
+        Route::post('/orders/{id}/delivered', [DriverOrderController::class, 'delivered'])->name('driver.orders.delivered');
+        Route::post('/orders/{id}/failed', [DriverOrderController::class, 'failed'])->name('driver.orders.failed');
     });
 });
 

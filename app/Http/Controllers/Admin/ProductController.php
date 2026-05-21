@@ -17,8 +17,7 @@ class ProductController extends Controller
         $randomProducts = Product::inRandomOrder()->take(10)->get();
         $latestProducts = Product::latest()->take(10)->get();
 
-        // return view('home', compact('categories','products','randomProducts','latestProducts'));
-        return view('driver.dashboard');
+        return view('home', compact('categories','products','randomProducts','latestProducts'));
     }
 
     public function liveSearch(Request $request)
