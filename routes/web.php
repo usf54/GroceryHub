@@ -39,6 +39,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/payment/cancel', [OrderController::class, 'paymentCancel'])->name('payment.cancel');
 });
 
+// ================================= Driver(Delivery) ROUTES ============================================
+
+Route::middleware(['auth', 'driver', 'verified'])->group(function () {
+    Route::prefix('driver')->group(function () {
+        // DASHBOARD
+        Route::get('/dashboard', [DriverDashboardController::class, 'index'])->name('dashboard');
+        // ORDERS
+        Route::get('/orders', [DriverOrderController::class, 'index'])->name('orders');
+        Route::get('/orders/{id}', [DriverOrderController::class, 'show'])->name('orders.show');
+        // ACTIONS
+        Route::post('/orders/{id}/start', [DriverOrderController::class, 'start'])->name('orders.start');
+        Route::post('/orders/{id}/delivered', [DriverOrderController::class, 'delivered'])->name('orders.delivered');
+        Route::post('/orders/{id}/failed', [DriverOrderController::class, 'failed'])->name('orders.failed');
+    });
+});
+
 // ================================= ADMIN ROUTES =======================================================
 Route::middleware(['auth', 'admin', 'verified'])->group(function () {
     // Products CRUD Routes

@@ -31,7 +31,7 @@ class UserController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'address' => 'nullable|string',
             'phone' => 'nullable|string',
-            'role' => 'required|in:admin,client',
+            'role' => 'required|in:admin,client,driver',
         ]);
 
         $data = $request->all();
@@ -57,7 +57,7 @@ class UserController extends Controller
             'password' => 'nullable|string|min:8|confirmed',
             'address' => 'nullable|string',
             'phone' => 'nullable|string',
-            'role' => 'required|in:admin,client',
+            'role' => 'required|in:admin,client,driver',
         ]);
 
         $data = $request->all();

@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->string('password');
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
-            $table->enum('role', ['admin', 'client'])->default('client');
+            $table->enum('role', ['admin', 'client','driver'])->default('client');
             $table->timestamps();
         });
         Schema::create('sessions', function (Blueprint $table) {

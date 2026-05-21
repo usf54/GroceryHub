@@ -53,6 +53,7 @@
             <select name="role" id="role" class="form-control" required>
                 <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                 <option value="client" {{ old('role') == 'client' ? 'selected' : '' }}>Client</option>
+                <option value="driver" {{ old('role') == 'driver' ? 'selected' : '' }}>Driver</option>
             </select>
         </div>
 
