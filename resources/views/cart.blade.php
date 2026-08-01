@@ -31,11 +31,19 @@
                 <div class="list-group shadow-sm border">
                     @php $total = 0; @endphp
                     @foreach(session('cart') as $id => $item)
-                        @php $total += $item['subtotal']; @endphp
+                        @php 
+                            $total += $item['subtotal'];
+                        @endphp
+                        @php 
+                            $imageParts = explode('-', $item['img']);
+                            $imageUrl = ($imageParts[0] === 'demo') 
+                                ? asset('assets/img/demo/products/' .$item['img']) 
+                                : asset('storage/' .$item['img']);
+                        @endphp
                         <div class="list-group-item d-flex flex-column flex-md-row align-items-center justify-content-between py-3 border-bottom">
                             {{-- Product Info --}}
                             <div class="d-flex align-items-center mb-3 mb-md-0">
-                                <img src="{{ asset('storage/' . $item['img']) }}" alt="{{ $item['name'] }}" class="rounded me-3" style="width:80px; height:80px; object-fit:cover;">
+                                <img src="{{ $imageUrl }}" alt="{{ $item['name'] }}" class="rounded me-3" style="width:80px; height:80px; object-fit:cover;">
                                 <div class="d-flex flex-column">
                                     <h5 class="mb-1">{{ $item['name'] }}</h5>
                                     <span class="text-muted">Price: <strong>{{ number_format($item['price'], 2) }} MAD</strong></span>
@@ -91,11 +99,18 @@
         <div class="row">
 
         @foreach($recommendedProducts as $product)
+                <!-- 🧪 DEMO MODE - For testing only -->
+                @php
+                    $imageParts = explode('-', $product->img);
+                    $imageUrl = ($imageParts[0] === 'demo') 
+                        ? asset('assets/img/demo/products/' . $product->img) 
+                        : asset('storage/' . $product->img);
+                @endphp
             <div class="col mb-4">
                 <div class="product-item">
                     <figure>
                         <a href="{{ route('product.show', $product->id) }}" title="{{ $product->name }}">
-                            <img src="{{ asset('storage/' . $product->img) }}" class="tab-image img-fluid" alt="{{ $product->name }}">
+                            <img src="{{ $imageUrl }}" class="tab-image img-fluid" alt="{{ $product->name }}">
                         </a>
                     </figure>
                     <h3>{{ $product->name }}</h3>

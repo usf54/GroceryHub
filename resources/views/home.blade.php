@@ -95,9 +95,22 @@
       <div class="col-md-12">
         <div class="category-carousel swiper">
           <div class="swiper-wrapper">
+            <!-- 🧪 DEMO MODE - For testing only -->
             @foreach ($categories as $category)
+                @php
+                    $imageParts = explode('-', $category->image);
+                    $imageUrl = ($imageParts[0] === 'demo') 
+                        ? asset('assets/img/demo/categories/' . $category->image) 
+                        : asset('storage/' . $category->image);
+                @endphp
+                
                 <a href="{{ route('products.list', ['category' => $category->id]) }}" class="nav-link swiper-slide text-center">
-                    <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}"  class="rounded-circle" width="150" height='150'>
+                    <img  
+                        src="{{ $imageUrl }}"
+                        alt="{{ $category->name }}"
+                        class="rounded-circle"
+                        width="150"
+                        height="150">
                     <h4 class="fs-6 mt-3 fw-normal category-title">{{ $category->name }}</h4>
                 </a>
             @endforeach
@@ -134,12 +147,19 @@
                     row-cols-xxl-6 
                     g-3">
           @foreach ($products as $product)
+              <!-- 🧪 DEMO MODE - For testing only -->
+              @php
+                $imageParts = explode('-', $product->img);
+                $imageUrl = ($imageParts[0] === 'demo') 
+                    ? asset('assets/img/demo/products/' . $product->img) 
+                    : asset('storage/' . $product->img);
+              @endphp
             <div class="col">
               <div class="card h-100 border-0 shadow-sm p-2 d-flex flex-column">
                 <!-- Product Image -->
                 <figure class="ratio ratio-4x3 m-2">
                   <a href="{{ route('product.show', $product->id) }}">
-                    <img src="{{ asset('storage/' . $product->img) }}"
+                    <img src="{{ $imageUrl }}"
                         class="img-fluid object-fit-cover"
                         alt="{{ $product->name }}">
                   </a>
@@ -237,10 +257,17 @@
         <div class="swiper">
           <div class="swiper-wrapper">
             @foreach ($randomProducts as $rproduct)
+              <!-- 🧪 DEMO MODE - For testing only -->
+                @php
+                  $imageParts = explode('-', $rproduct->img);
+                  $imageUrl = ($imageParts[0] === 'demo') 
+                      ? asset('assets/img/demo/products/' . $rproduct->img) 
+                      : asset('storage/' . $rproduct->img);
+                @endphp
               <div class="product-item swiper-slide">
                 <figure>
                   <a href="{{ route('product.show', $rproduct->id) }}" title="{{ $rproduct->name }}">
-                    <img src="{{ asset('storage/' . $rproduct->img) }}" alt="{{ $rproduct->name }}" class="tab-image">
+                    <img src="{{ $imageUrl }}" alt="{{ $rproduct->name }}" class="tab-image">
                   </a>
                 </figure>
                 <div class="d-flex flex-column text-center">
@@ -307,10 +334,17 @@
         <div class="swiper">
           <div class="swiper-wrapper">
             @foreach ($latestProducts as $lproduct)
+              <!-- 🧪 DEMO MODE - For testing only -->
+                @php
+                  $imageParts = explode('-', $lproduct->img);
+                  $imageUrl = ($imageParts[0] === 'demo') 
+                      ? asset('assets/img/demo/products/' . $lproduct->img) 
+                      : asset('storage/' . $lproduct->img);
+                @endphp
               <div class="product-item swiper-slide">
                 <figure>
                   <a href="{{ route('product.show', $lproduct->id) }}" title="{{ $lproduct->name }}">
-                    <img src="{{ asset('storage/' . $lproduct->img) }}" alt="{{ $lproduct->name }}" class="tab-image">
+                    <img src="{{ $imageUrl }}" alt="{{ $lproduct->name }}" class="tab-image">
                   </a>
                 </figure>
                 <div class="d-flex flex-column text-center">

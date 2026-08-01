@@ -27,11 +27,18 @@
             </thead>
             <tbody>
                 @foreach ($categories as $category)
+                    <!-- 🧪 DEMO MODE - For testing only -->
+                    @php
+                    $imageParts = explode('-', $category->image);
+                    $imageUrl = ($imageParts[0] === 'demo') 
+                        ? asset('assets/img/demo/categories/' . $category->image) 
+                        : asset('storage/' . $category->image);
+                    @endphp
                     <tr>
                         <td>{{ $category->id }}</td>
                         <td>
                             @if ($category->image)
-                                <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" class="img-thumbnail" style="width: 100px; height: 100px;">
+                                <img src="{{ $imageUrl }}" alt="{{ $category->name }}" class="img-thumbnail" style="width: 100px; height: 100px;">
                             @else
                                 <span class="text-muted">No Image</span>
                             @endif

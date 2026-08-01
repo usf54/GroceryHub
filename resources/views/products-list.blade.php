@@ -68,11 +68,18 @@
                                         @endif
                                         <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
                                             @foreach ($products as $product)
+                                                <!-- 🧪 DEMO MODE - For testing only -->
+                                                @php
+                                                $imageParts = explode('-', $product->img);
+                                                $imageUrl = ($imageParts[0] === 'demo') 
+                                                    ? asset('assets/img/demo/products/' . $product->img) 
+                                                    : asset('storage/' . $product->img);
+                                                @endphp
                                                 <div class="col mb-4">
                                                     <div class="product-item">
                                                         <figure>
                                                             <a href="{{ route('product.show', $product->id) }}" title="{{ $product->name }}">
-                                                                <img src="{{ asset('storage/' . $product->img) }}" class="tab-image img-fluid" alt="{{ $product->name }}">
+                                                                <img src="{{ $imageUrl }}" class="tab-image img-fluid" alt="{{ $product->name }}">
                                                             </a>
                                                         </figure>
                                                         <h3>{{ $product->name }}</h3>

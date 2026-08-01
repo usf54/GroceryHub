@@ -4,7 +4,14 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
-            <img style="width:100%;" src="{{ asset('storage/' . $product->img) }}" class="tab-image" alt="{{ $product->name }}">
+            <!-- 🧪 DEMO MODE - For testing only -->
+            @php
+                $imageParts = explode('-', $product->img);
+                $imageUrl = ($imageParts[0] === 'demo') 
+                    ? asset('assets/img/demo/products/' . $product->img) 
+                    : asset('storage/' . $product->img);
+            @endphp
+            <img style="width:100%;" src="{{ $imageUrl }}" class="tab-image" alt="{{ $product->name }}">
         </div>
         <div class="col-md-6">
             <h2>{{ $product->name }}</h2>
@@ -61,11 +68,18 @@
             <h3 class="mb-4">You Might Also Like</h3>
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
                 @foreach($recommendedProducts as $recommended)
+                    <!-- 🧪 DEMO MODE - For testing only -->
+                    @php
+                    $imageParts = explode('-', $recommended->img);
+                    $imageUrl = ($imageParts[0] === 'demo') 
+                        ? asset('assets/img/demo/products/' . $recommended->img) 
+                        : asset('storage/' . $recommended->img);
+                    @endphp
                     <div class="col d-flex"> <!-- Added d-flex -->
                         <div class="product-item d-flex flex-column w-100"> <!-- Added flex classes -->
                             <figure class="flex-grow-0" style="height: 200px; overflow: hidden;"> <!-- Fixed height -->
                                 <a href="{{ route('products.show', $recommended->id) }}" title="{{ $recommended->name }}">
-                                    <img src="{{ asset('storage/' . $recommended->img) }}" 
+                                    <img src="{{ $imageUrl }}" 
                                         alt="{{ $recommended->name }}" 
                                         class="w-100 h-100 object-fit-cover"> <!-- Ensures consistent image sizing -->
                                 </a>
@@ -78,7 +92,7 @@
                                 </div>
                                 <div class="mt-auto p-2"> <!-- Pushes button to bottom -->
                                     <a href="{{ route('products.show', $recommended->id) }}" 
-                                       class="btn btn-warning rounded-1 px-3 py-2 fs-7 w-100"> <!-- Full width button -->
+                                        class="btn btn-warning rounded-1 px-3 py-2 fs-7 w-100"> <!-- Full width button -->
                                         <svg width="18" height="18" class="me-1"><use xlink:href="#cart"></use></svg> 
                                         View More
                                     </a>

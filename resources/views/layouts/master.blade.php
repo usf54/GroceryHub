@@ -227,12 +227,16 @@
                       resultsBox.innerHTML = '';
                       if (data.length > 0) {
                           data.forEach(product => {
+                            const imageParts = product.img.split('-');
+                            const imageUrl = (imageParts[0] === 'demo') 
+                                ? `/assets/img/demo/products/${product.img}`
+                                : `/storage/${product.img}`;
                               const item = document.createElement('a');
                               item.href = `/products/${product.id}`;
                               item.classList.add('search-result-item');
                               item.innerHTML = `
                                   <div class="d-flex align-items-center gap-2 p-2">
-                                      <img src="/storage/${product.img}" alt="${product.name}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px;">
+                                      <img src="${imageUrl}" alt="${product.name}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px;">
                                       <span>${product.name}</span>
                                   </div>
                               `;

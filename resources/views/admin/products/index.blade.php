@@ -30,11 +30,18 @@
             </thead>
             <tbody>
                 @foreach ($products as $product)
+                    <!-- 🧪 DEMO MODE - For testing only -->
+                    @php
+                    $imageParts = explode('-', $product->img);
+                    $imageUrl = ($imageParts[0] === 'demo') 
+                        ? asset('assets/img/demo/products/' . $product->img) 
+                        : asset('storage/' . $product->img);
+                    @endphp
                     <tr>
                         <td>{{ $product->id }}</td>
                         <td>
                             @if ($product->img)
-                                <img src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}" class="img-thumbnail" style="width: 50px; height: 50px;">
+                                <img src="{{ $imageUrl }}" alt="{{ $product->name }}" class="img-thumbnail" style="width: 50px; height: 50px;">
                             @else
                                 <span class="text-muted">No Image</span>
                             @endif

@@ -40,7 +40,14 @@
             <label for="img">Image</label>
             <input type="file" name="img" id="img" class="form-control">
             @if ($product->img)
-                <img src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}" class="img-thumbnail mt-2" style="width: 100px;">
+                    <!-- 🧪 DEMO MODE - For testing only -->
+                    @php
+                    $imageParts = explode('-', $product->img);
+                    $imageUrl = ($imageParts[0] === 'demo') 
+                        ? asset('assets/img/demo/products/' . $product->img) 
+                        : asset('storage/' . $product->img);
+                    @endphp
+                <img src="{{ $imageUrl }}" alt="{{ $product->name }}" class="img-thumbnail mt-2" style="width: 100px;">
             @endif
         </div>
 
