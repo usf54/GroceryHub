@@ -48,6 +48,9 @@ It includes a full admin dashboard to manage products, users, and orders, for a 
 6. **Start the development server**
     npm run dev
     php artisan serve
+6. **Demo accounts**
+    admin email: admin@grocery.com || password: password
+    client email: john@gmail.com || password: password
 
 ##🧠 Usage
 Users can browse groceries, search items, add to cart, and complete purchases securely.

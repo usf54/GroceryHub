@@ -12,7 +12,8 @@ class AdminSeeder extends Seeder
     {
         User::create([
             'name' => 'Admin',
-            'email' => 'admin@grocery.com',
+            'email' => 'admin@grocery.com',            
+            'email_verified_at'=>now(),
             'password' => Hash::make('password'),
             'address' => 'Grocery Store HQ',
             'phone' => '0600000000',

@@ -147,7 +147,6 @@
                     row-cols-xxl-6 
                     g-3">
           @foreach ($products as $product)
-              <!-- 🧪 DEMO MODE - For testing only -->
               @php
                 $imageParts = explode('-', $product->img);
                 $imageUrl = ($imageParts[0] === 'demo') 
@@ -156,25 +155,24 @@
               @endphp
             <div class="col">
               <div class="card h-100 border-0 shadow-sm p-2 d-flex flex-column">
-                <!-- Product Image -->
-                <figure class="ratio ratio-4x3 m-2">
-                  <a href="{{ route('product.show', $product->id) }}">
+                <!-- Product Image - Fixed size -->
+                <div class="product-image-wrapper" style="width: 100%; height: 200px; overflow: hidden; border-radius: 8px;">
+                  <a href="{{ route('product.show', $product->id) }}" class="d-block w-100 h-100">
                     <img src="{{ $imageUrl }}"
-                        class="img-fluid object-fit-cover"
+                        class="img-fluid w-100 h-100"
+                        style="object-fit: cover;"
                         alt="{{ $product->name }}">
                   </a>
-                </figure>
+                </div>
                 <!-- Card Body -->
-                <div class="card-body text-center d-flex flex-column pt-5">
-                  <h3 class="fs-6 fw-normal mb-1">
+                <div class="card-body text-center d-flex flex-column pt-3">
+                  <h3 class="fs-6 fw-normal mb-1" style="min-height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                     {{ $product->name }}
                   </h3>
                   <div class="mb-1">
-                    <div>
-                      <span class="badge {{ $product->stock > 0 ? 'bg-success' : 'bg-danger' }}">
-                        {{ $product->stock > 0 ? 'Available' : 'Not available' }} ({{$product->stock}})
-                      </span>
-                    </div>
+                    <span class="badge {{ $product->stock > 0 ? 'bg-success' : 'bg-danger' }}">
+                      {{ $product->stock > 0 ? 'Available' : 'Not available' }} ({{$product->stock}})
+                    </span>
                   </div>
                   <span class="text-dark fw-bold fs-6 mb-2">
                     {{ number_format($product->price, 2) }} MAD
@@ -257,22 +255,28 @@
         <div class="swiper">
           <div class="swiper-wrapper">
             @foreach ($randomProducts as $rproduct)
-              <!-- 🧪 DEMO MODE - For testing only -->
-                @php
-                  $imageParts = explode('-', $rproduct->img);
-                  $imageUrl = ($imageParts[0] === 'demo') 
-                      ? asset('assets/img/demo/products/' . $rproduct->img) 
-                      : asset('storage/' . $rproduct->img);
-                @endphp
-              <div class="product-item swiper-slide">
-                <figure>
-                  <a href="{{ route('product.show', $rproduct->id) }}" title="{{ $rproduct->name }}">
-                    <img src="{{ $imageUrl }}" alt="{{ $rproduct->name }}" class="tab-image">
-                  </a>
-                </figure>
-                <div class="d-flex flex-column text-center">
-                  <h3 class="fs-6 fw-normal">{{ $rproduct->name }}</h3>
-                  <div>
+              @php
+                $imageParts = explode('-', $rproduct->img);
+                $imageUrl = ($imageParts[0] === 'demo') 
+                    ? asset('assets/img/demo/products/' . $rproduct->img) 
+                    : asset('storage/' . $rproduct->img);
+              @endphp
+              <div class="swiper-slide">
+                <div class="card h-100 border-0 shadow-sm p-2 d-flex flex-column">
+                  <!-- Product Image - Fixed size like trending -->
+                  <div class="product-image-wrapper" style="width: 100%; height: 200px; overflow: hidden; border-radius: 8px;">
+                    <a href="{{ route('product.show', $rproduct->id) }}" class="d-block w-100 h-100">
+                      <img src="{{ $imageUrl }}" 
+                            alt="{{ $rproduct->name }}" 
+                            class="img-fluid w-100 h-100"
+                            style="object-fit: cover;">
+                    </a>
+                  </div>
+                  <!-- Card Body - Same as trending -->
+                  <div class="card-body text-center d-flex flex-column pt-3">
+                    <h3 class="fs-6 fw-normal mb-1" style="min-height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      {{ $rproduct->name }}
+                    </h3>
                     <div class="mb-1">
                       <span>
                         <svg width="16" height="16" class="text-warning"><use xlink:href="#star-full"></use></svg>
@@ -282,22 +286,19 @@
                         <svg width="16" height="16" class="text-warning"><use xlink:href="#star-half"></use></svg>
                       </span>
                       <div>
-                        <span class="badge {{ $product->stock > 0 ? 'bg-success' : 'bg-danger' }}">
-                          {{ $product->stock > 0 ? 'Available' : 'Not available' }} ({{$product->stock}})
+                        <span class="badge {{ $rproduct->stock > 0 ? 'bg-success' : 'bg-danger' }}">
+                          {{ $rproduct->stock > 0 ? 'Available' : 'Not available' }} ({{$rproduct->stock}})
                         </span>
                       </div>
                     </div>
-                  </div>
-                  <div class="d-flex justify-content-center align-items-center gap-2">
-                    <span class="text-dark fw-semibold">{{ number_format($rproduct->price, 2) }} mad</span>
-                  </div>
-                  <div class="button-area p-3 pt-0">
-                    <div class="row g-1 mt-2" style="display: flex;justify-content: center;">
-                      <div class="col-7" id="btn-cart">
-                        <a href="{{ route('product.show', $rproduct->id) }}" class="btn btn-warning rounded-1 p-2 fs-7 btn-cart">
-                          <svg width="18" height="18"><use xlink:href="#cart"></use></svg> View Product
-                        </a>
-                      </div>
+                    <span class="text-dark fw-bold fs-6 mb-2">
+                      {{ number_format($rproduct->price, 2) }} MAD
+                    </span>
+                    <div class="mt-auto">
+                      <a href="{{ route('product.show', $rproduct->id) }}"
+                        class="btn btn-warning btn-sm w-100 fw-semibold">
+                        <svg width="18" height="18"><use xlink:href="#cart"></use></svg> View Product
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -317,7 +318,7 @@
   <div class="container-lg overflow-hidden pb-5">
     <div class="row">
       <div class="col-md-12">
-        <div class="section-header d-flex justify-content-between my-4">
+        <div class="section-header d-flex flex-wrap justify-content-between my-4">
           <h2 class="section-title">Just arrived</h2>
           <div class="d-flex align-items-center">
             <a href=" {{ route('products.list') }} " class="cta-btn">View All</a>
@@ -334,22 +335,28 @@
         <div class="swiper">
           <div class="swiper-wrapper">
             @foreach ($latestProducts as $lproduct)
-              <!-- 🧪 DEMO MODE - For testing only -->
-                @php
-                  $imageParts = explode('-', $lproduct->img);
-                  $imageUrl = ($imageParts[0] === 'demo') 
-                      ? asset('assets/img/demo/products/' . $lproduct->img) 
-                      : asset('storage/' . $lproduct->img);
-                @endphp
-              <div class="product-item swiper-slide">
-                <figure>
-                  <a href="{{ route('product.show', $lproduct->id) }}" title="{{ $lproduct->name }}">
-                    <img src="{{ $imageUrl }}" alt="{{ $lproduct->name }}" class="tab-image">
-                  </a>
-                </figure>
-                <div class="d-flex flex-column text-center">
-                  <h3 class="fs-6 fw-normal">{{ $lproduct->name }}</h3>
-                  <div>
+              @php
+                $imageParts = explode('-', $lproduct->img);
+                $imageUrl = ($imageParts[0] === 'demo') 
+                    ? asset('assets/img/demo/products/' . $lproduct->img) 
+                    : asset('storage/' . $lproduct->img);
+              @endphp
+              <div class="swiper-slide">
+                <div class="card h-100 border-0 shadow-sm p-2 d-flex flex-column">
+                  <!-- Product Image - Fixed size like trending -->
+                  <div class="product-image-wrapper" style="width: 100%; height: 200px; overflow: hidden; border-radius: 8px;">
+                    <a href="{{ route('product.show', $lproduct->id) }}" class="d-block w-100 h-100">
+                      <img src="{{ $imageUrl }}" 
+                           alt="{{ $lproduct->name }}" 
+                           class="img-fluid w-100 h-100"
+                           style="object-fit: cover;">
+                    </a>
+                  </div>
+                  <!-- Card Body - Same as trending -->
+                  <div class="card-body text-center d-flex flex-column pt-3">
+                    <h3 class="fs-6 fw-normal mb-1" style="min-height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                      {{ $lproduct->name }}
+                    </h3>
                     <div class="mb-1">
                       <span>
                         <svg width="16" height="16" class="text-warning"><use xlink:href="#star-full"></use></svg>
@@ -358,24 +365,20 @@
                         <svg width="16" height="16" class="text-warning"><use xlink:href="#star-full"></use></svg>
                         <svg width="16" height="16" class="text-warning"><use xlink:href="#star-half"></use></svg>
                       </span>
-
                       <div>
-                        <span class="badge {{ $product->stock > 0 ? 'bg-success' : 'bg-danger' }}">
-                          {{ $product->stock > 0 ? 'Available' : 'Not available' }} ({{$product->stock}})
+                        <span class="badge {{ $lproduct->stock > 0 ? 'bg-success' : 'bg-danger' }}">
+                          {{ $lproduct->stock > 0 ? 'Available' : 'Not available' }} ({{$lproduct->stock}})
                         </span>
                       </div>
                     </div>
-                  </div>
-                  <div class="d-flex justify-content-center align-items-center gap-2">
-                    <span class="text-dark fw-semibold">{{ number_format($lproduct->price, 2) }} mad</span>
-                  </div>
-                  <div class="button-area p-3 pt-0">
-                    <div class="row g-1 mt-2" style="display: flex;justify-content: center;">
-                      <div class="col-7" id="btn-cart">
-                        <a href="{{ route('product.show', $lproduct->id) }}" class="btn btn-warning rounded-1 p-2 fs-7 btn-cart">
-                          <svg width="18" height="18"><use xlink:href="#cart"></use></svg> View Product
-                        </a>
-                      </div>
+                    <span class="text-dark fw-bold fs-6 mb-2">
+                      {{ number_format($lproduct->price, 2) }} MAD
+                    </span>
+                    <div class="mt-auto">
+                      <a href="{{ route('product.show', $lproduct->id) }}"
+                        class="btn btn-warning btn-sm w-100 fw-semibold">
+                        <svg width="18" height="18"><use xlink:href="#cart"></use></svg> View Product
+                      </a>
                     </div>
                   </div>
                 </div>

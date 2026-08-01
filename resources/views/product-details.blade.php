@@ -11,12 +11,16 @@
                     ? asset('assets/img/demo/products/' . $product->img) 
                     : asset('storage/' . $product->img);
             @endphp
-            <img style="width:100%;" src="{{ $imageUrl }}" class="tab-image" alt="{{ $product->name }}">
+            <div class="product-image-wrapper" style="width: 100%; height: 400px; overflow: hidden; border-radius: 8px; background: #f8f9fa;">
+                <img src="{{ $imageUrl }}" 
+                     alt="{{ $product->name }}" 
+                     style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
         </div>
         <div class="col-md-6">
             <h2>{{ $product->name }}</h2>
             <p><strong>Description:</strong> {{ $product->description }}</p>
-            <p><strong>Price:</strong> {{ number_format($product->price, 2) }}mad</p>
+            <p><strong>Price:</strong> {{ number_format($product->price, 2) }} MAD</p>
             <p><strong>Stock:</strong> {{ $product->stock }} units</p>
 
             <!-- Inform about discounts and shipping -->
@@ -34,7 +38,7 @@
                 </div>
                 <div class="alert alert-info">
                     <strong>Free Shipping:</strong>
-                    If your order subtotal is over 100mad, you qualify for free shipping! Otherwise, a 10mad shipping fee will apply.
+                    If your order subtotal is over 100 MAD, you qualify for free shipping! Otherwise, a 10 MAD shipping fee will apply.
                 </div>
 
                 @if (session('success'))
@@ -46,9 +50,7 @@
                     @csrf
                     <div class="input-group mb-3">
                         <input type="number" class="form-control" name="quantity" value="1" min="1" max="{{ $product->stock }}">
-                        <div class="input-group-append">
-                            <button class="btn btn-warning" type="submit">Add to Cart</button>
-                        </div>
+                        <button class="btn btn-warning" type="submit">Add to Cart</button>
                     </div>
                 </form>
             @else
@@ -60,7 +62,6 @@
         </div>
     </div>
 
-    
     <!-- Recommended Products Section -->
     @if($recommendedProducts->count())
     <div class="row mt-5">
@@ -68,33 +69,40 @@
             <h3 class="mb-4">You Might Also Like</h3>
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
                 @foreach($recommendedProducts as $recommended)
-                    <!-- 🧪 DEMO MODE - For testing only -->
                     @php
-                    $imageParts = explode('-', $recommended->img);
-                    $imageUrl = ($imageParts[0] === 'demo') 
-                        ? asset('assets/img/demo/products/' . $recommended->img) 
-                        : asset('storage/' . $recommended->img);
+                        $imageParts = explode('-', $recommended->img);
+                        $imageUrl = ($imageParts[0] === 'demo') 
+                            ? asset('assets/img/demo/products/' . $recommended->img) 
+                            : asset('storage/' . $recommended->img);
                     @endphp
-                    <div class="col d-flex"> <!-- Added d-flex -->
-                        <div class="product-item d-flex flex-column w-100"> <!-- Added flex classes -->
-                            <figure class="flex-grow-0" style="height: 200px; overflow: hidden;"> <!-- Fixed height -->
-                                <a href="{{ route('products.show', $recommended->id) }}" title="{{ $recommended->name }}">
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm p-2 d-flex flex-column">
+                            <!-- Product Image - Fixed size -->
+                            <div class="product-image-wrapper" style="width: 100%; height: 200px; overflow: hidden; border-radius: 8px;">
+                                <a href="{{ route('product.show', $recommended->id) }}" class="d-block w-100 h-100">
                                     <img src="{{ $imageUrl }}" 
-                                        alt="{{ $recommended->name }}" 
-                                        class="w-100 h-100 object-fit-cover"> <!-- Ensures consistent image sizing -->
+                                         alt="{{ $recommended->name }}" 
+                                         class="img-fluid w-100 h-100"
+                                         style="object-fit: cover;">
                                 </a>
-                            </figure>
-                            <div class="d-flex flex-column text-center flex-grow-1 p-3"> <!-- Added padding and flex-grow -->
-                                <h3 class="fs-6 fw-normal mb-2">{{ Str::limit($recommended->name, 50) }}</h3> <!-- Added character limit -->
-                                <span class="text-muted small mb-2">({{ $recommended->stock }} available)</span>        
-                                <div class="d-flex justify-content-center align-items-center gap-2 mb-3">
-                                    <span class="text-dark fw-bold">{{ number_format($recommended->price, 2) }} mad</span>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body text-center d-flex flex-column pt-3">
+                                <h3 class="fs-6 fw-normal mb-1" style="min-height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                    {{ $recommended->name }}
+                                </h3>
+                                <div class="mb-1">
+                                    <span class="badge {{ $recommended->stock > 0 ? 'bg-success' : 'bg-danger' }}">
+                                        {{ $recommended->stock > 0 ? 'Available' : 'Not available' }} ({{$recommended->stock}})
+                                    </span>
                                 </div>
-                                <div class="mt-auto p-2"> <!-- Pushes button to bottom -->
-                                    <a href="{{ route('products.show', $recommended->id) }}" 
-                                        class="btn btn-warning rounded-1 px-3 py-2 fs-7 w-100"> <!-- Full width button -->
-                                        <svg width="18" height="18" class="me-1"><use xlink:href="#cart"></use></svg> 
-                                        View More
+                                <span class="text-dark fw-bold fs-6 mb-2">
+                                    {{ number_format($recommended->price, 2) }} MAD
+                                </span>
+                                <div class="mt-auto">
+                                    <a href="{{ route('product.show', $recommended->id) }}"
+                                       class="btn btn-warning btn-sm w-100 fw-semibold">
+                                        <svg width="18" height="18"><use xlink:href="#cart"></use></svg> View Product
                                     </a>
                                 </div>
                             </div>
@@ -104,6 +112,6 @@
             </div>
         </div>
     </div>
-@endif
+    @endif
 </div>
 @endsection

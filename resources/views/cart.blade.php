@@ -94,38 +94,57 @@
             </div>
         </div>
 
-        <h3>You Might Need These</h3>
-
-        <div class="row">
-
-        @foreach($recommendedProducts as $product)
-                <!-- 🧪 DEMO MODE - For testing only -->
-                @php
-                    $imageParts = explode('-', $product->img);
-                    $imageUrl = ($imageParts[0] === 'demo') 
-                        ? asset('assets/img/demo/products/' . $product->img) 
-                        : asset('storage/' . $product->img);
-                @endphp
-            <div class="col mb-4">
-                <div class="product-item">
-                    <figure>
-                        <a href="{{ route('product.show', $product->id) }}" title="{{ $product->name }}">
-                            <img src="{{ $imageUrl }}" class="tab-image img-fluid" alt="{{ $product->name }}">
-                        </a>
-                    </figure>
-                    <h3>{{ $product->name }}</h3>
-                    <span class="qty">1 Unit</span>
-                    <span class="rating">
-                        <svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> | Stock :{{$product->stock}}
-                    </span>
-                    <span class="price">{{ number_format($product->price, 2) }}mad</span>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <a href="{{ route('product.show', $product->id) }}" class="nav-link text-warning">Show Details <iconify-icon icon="uil:shopping-cart"></iconify-icon></a>
-                    </div>
+        {{-- You Might Also Like --}}
+        @if($recommendedProducts->count())
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3 class="mb-4">You Might Also Like</h3>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    @foreach($recommendedProducts as $product)
+                        @php
+                            $imageParts = explode('-', $product->img);
+                            $imageUrl = ($imageParts[0] === 'demo') 
+                                ? asset('assets/img/demo/products/' . $product->img) 
+                                : asset('storage/' . $product->img);
+                        @endphp
+                        <div class="col">
+                            <div class="card h-100 border-0 shadow-sm p-2 d-flex flex-column">
+                                <!-- Product Image - Fixed size -->
+                                <div class="product-image-wrapper" style="width: 100%; height: 200px; overflow: hidden; border-radius: 8px;">
+                                    <a href="{{ route('product.show', $product->id) }}" class="d-block w-100 h-100">
+                                        <img src="{{ $imageUrl }}" 
+                                             alt="{{ $product->name }}" 
+                                             class="img-fluid w-100 h-100"
+                                             style="object-fit: cover;">
+                                    </a>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body text-center d-flex flex-column pt-3">
+                                    <h3 class="fs-6 fw-normal mb-1" style="min-height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                        {{ $product->name }}
+                                    </h3>
+                                    <div class="mb-1">
+                                        <span class="badge {{ $product->stock > 0 ? 'bg-success' : 'bg-danger' }}">
+                                            {{ $product->stock > 0 ? 'Available' : 'Not available' }} ({{$product->stock}})
+                                        </span>
+                                    </div>
+                                    <span class="text-dark fw-bold fs-6 mb-2">
+                                        {{ number_format($product->price, 2) }} MAD
+                                    </span>
+                                    <div class="mt-auto">
+                                        <a href="{{ route('product.show', $product->id) }}"
+                                           class="btn btn-warning btn-sm w-100 fw-semibold">
+                                            <svg width="18" height="18"><use xlink:href="#cart"></use></svg> View Product
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
-        @endforeach
         </div>
+        @endif
     @else
         {{-- Empty Cart --}}
         <div class="text-center py-5">
