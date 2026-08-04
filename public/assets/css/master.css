@@ -287,24 +287,6 @@ html {
         display: block;
     }
 }
-.product-item {
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    padding: 10px;
-    transition: transform 0.3s ease;
-    height: 100%;
-}
-
-.product-item:hover {
-    transform: translateY(-5px);
-}
-
-.product-item img {
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-}
 
 /* CART CSS */
 .cart-page {

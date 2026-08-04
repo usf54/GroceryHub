@@ -82,7 +82,7 @@
         <div class="section-header d-flex flex-wrap justify-content-between mb-5">
           <h2 class="section-title">Category</h2>
           <div class="d-flex align-items-center">
-            <a href=" {{ route('products.list') }} " class="cta-btn">View All</a>
+            <a href=" {{ route('products.list') }} " class="text-decoration-none fw-medium" style="color: #00b894; font-size: 0.9rem;">View All →</a>
             <div class="swiper-buttons">
               <button class="swiper-prev category-carousel-prev btn btn-yellow">❮</button>
               <button class="swiper-next category-carousel-next btn btn-yellow">❯</button>
@@ -131,7 +131,9 @@
         <div class="section-header d-flex flex-wrap justify-content-between my-4">
           <h2 class="section-title">Trending products</h2>
           <div class="d-flex align-items-center">
-            <a href=" {{ route('products.list') }} " class="cta-btn">View All</a>
+            <a href="{{ route('products.list') }}" class="text-decoration-none fw-medium mx-3" style="color: #00b894; font-size: 0.9rem;">
+                View All →
+            </a>          
           </div>
         </div>
       </div>
@@ -241,7 +243,7 @@
         <div class="section-header d-flex flex-wrap justify-content-between my-4">
           <h2 class="section-title">Featured</h2>
           <div class="d-flex align-items-center">
-            <a href="{{ route('products.list') }}" class="cta-btn">View All</a>
+            <a href="{{ route('products.list') }}" class="text-decoration-none fw-medium mx-3" style="color: #00b894; font-size: 0.9rem;">View All →</a>
             <div class="swiper-buttons">
               <button class="swiper-prev products-carousel-prev btn btn-yellow">❮</button>
               <button class="swiper-next products-carousel-next btn btn-yellow">❯</button>
@@ -321,7 +323,7 @@
         <div class="section-header d-flex flex-wrap justify-content-between my-4">
           <h2 class="section-title">Just arrived</h2>
           <div class="d-flex align-items-center">
-            <a href=" {{ route('products.list') }} " class="cta-btn">View All</a>
+            <a href=" {{ route('products.list') }} " class="text-decoration-none fw-medium mx-3" style="color: #00b894; font-size: 0.9rem;">View All →</a>
             <div class="swiper-buttons">
               <button class="swiper-prev products-carousel-prev btn btn-yellow">❮</button>
               <button class="swiper-next products-carousel-next btn btn-yellow">❯</button>
