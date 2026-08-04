@@ -34,23 +34,48 @@ class ProductController extends Controller
     public function showAllProducts(Request $request)
     {
         $categories = Category::all();
+
+        $prices = Product::selectRaw('MIN(price) as min_price, MAX(price) as max_price')
+            ->first();
+
+        $minPrice = (float) $prices->min_price;
+        $maxPrice = (float) $prices->max_price;
+
+        $request->validate([
+            'category' => 'nullable|integer|exists:categories,id',
+        ]);
+
         $query = Product::query();
 
-        // Filter by category ID
         if ($request->filled('category')) {
-            $query->where('category_id', $request->category);
+            $query->where('category_id', (int) $request->category);
         }
 
-        // Filter by price range
-        if ($request->filled('price')) {
-            $query->where('price', '<=', $request->price);
+        $selectedPrice = $maxPrice;
+
+        // Price filter
+        if ($request->filled('price') && is_numeric($request->price)) {
+
+            $price = (float) $request->price;
+
+            // Only apply the filter if the price is within the valid range
+            if ($price >= $minPrice && $price <= $maxPrice) {
+                $selectedPrice = $price;
+                $query->where('price', '<=', $price);
+            }
         }
 
-        // Paginate and retain filters
-        // appends($request->query()) ensures that filters (category, price) persist in pagination links.
-        $products = $query->paginate(12)->appends($request->query());
+        $products = $query
+            ->paginate(12)
+            ->appends($request->query());
 
-        return view('products-list', compact('products', 'categories'));
+        return view('products-list', [
+            'products'      => $products,
+            'categories'    => $categories,
+            'minPrice'      => $minPrice,
+            'maxPrice'      => $maxPrice,
+            'selectedPrice' => $selectedPrice,
+        ]);
     }
 
     // Show a specific product

@@ -37,12 +37,19 @@
                     </select>
                 </div>
                 
-                <div class="filter-group">
-                    <label for="price">Price Range</label>
-                    <input type="range" id="price" name="price" class="form-range" min="0" max="1000" value="{{ request('price', 1000) }}" step="10">
-                    <div class="price-display">
-                        <span id="price-value">{{ request('price', 1000) }}</span> MAD
-                    </div>
+                <input
+                    type="range"
+                    id="price"
+                    name="price"
+                    class="form-range"
+                    min="{{ $minPrice }}"
+                    max="{{ $maxPrice }}"
+                    value="{{ $selectedPrice }}"
+                    step="1"
+                >
+
+                <div class="price-display">
+                    <span id="price-value">{{ $selectedPrice }}</span> MAD
                 </div>
                 
                 <button type="submit" class="apply-filters-btn">
