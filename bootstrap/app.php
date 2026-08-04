@@ -59,16 +59,6 @@ return Application::configure(basePath: dirname(__DIR__))
             return redirect()->route('login');
         });
 
-        // 💥 500 - Generic server error
-        $exceptions->renderable(function (\Throwable $e, $request) {
-            if ($request->expectsJson()) {
-                return response()->json([
-                    'status' => 500,
-                    'message' => 'Server error',
-                ], 500);
-            }
-
-            return response()->view('errors.500', [], 500);
-    });
+        
     
     })->create();
